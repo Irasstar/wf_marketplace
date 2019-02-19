@@ -3719,3 +3719,394 @@ ttl: Absolute Skin; cst:250; cnt:9; 2019.2.18 21:33
 ttl: Absolute Skin; cst:250; cnt:8; 2019.2.18 21:37
 ttl: Absolute Skin; cst:250; cnt:8; 2019.2.18 21:37
 ttl: Absolute Skin; cst:397; cnt:8; 2019.2.18 21:38
+ttl: АK-103 Evil Santa; cst:4800; cnt:1; 2019.2.18 12:21
+ttl: АK-103 Evil Santa; cst:4761; cnt:2; 2019.2.19 15:58
+ttl: Medic of the Arctic Squad; cst:599; cnt:10; 2019.2.18 12:21
+ttl: Medic of the Arctic Squad; cst:599; cnt:9; 2019.2.19 15:58
+ttl: Desert Skin; cst:67; cnt:17; 2019.2.15 15:42
+ttl: Desert Skin; cst:67; cnt:18; 2019.2.19 15:58
+ttl: Wilderness Skin; cst:94; cnt:14; 2019.2.18 12:21
+ttl: Wilderness Skin; cst:94; cnt:13; 2019.2.19 15:58
+ttl: Urban Skin; cst:89; cnt:15; 2019.2.18 17:57
+ttl: Urban Skin; cst:90; cnt:13; 2019.2.19 15:58
+ttl: Urban Skin; cst:98; cnt:15; 2019.2.18 20:57
+ttl: Urban Skin; cst:99; cnt:13; 2019.2.19 15:58
+ttl: Famas F1; cst:1100; cnt:5; 2019.2.12 22:19
+ttl: Famas F1; cst:1085; cnt:5; 2019.2.19 15:58
+ttl: Gorilla king; cst:285; cnt:13; 2019.2.14 17:53
+ttl: Gorilla king; cst:284; cnt:14; 2019.2.19 15:58
+ttl: Absolute Skin; cst:395; cnt:35; 2019.2.2 22:7
+ttl: Absolute Skin; cst:395; cnt:36; 2019.2.19 15:58
+ttl: Engineer Nanosuit; cst:400; cnt:1; 2019.2.15 20:22
+ttl: Engineer Nanosuit; cst:3000; cnt:1; 2019.2.19 15:58
+ttl: Absolute Skin; cst:94; cnt:55; 2019.2.18 12:21
+ttl: Absolute Skin; cst:94; cnt:58; 2019.2.19 15:58
+ttl: Absolute Engineer; cst:799; cnt:43; 2019.2.18 18:56
+ttl: Absolute Engineer; cst:800; cnt:42; 2019.2.19 15:58
+ttl: Absolute boots; cst:1200; cnt:45; 2019.2.18 12:21
+ttl: Absolute boots; cst:1100; cnt:46; 2019.2.19 15:58
+ttl: Medic Nanosuit; cst:800; cnt:13; 2019.2.11 15:48
+ttl: Medic Nanosuit; cst:940; cnt:12; 2019.2.19 15:58
+ttl: Absolute DP-12; cst:10000; cnt:8; 2019.2.11 15:48
+ttl: Absolute DP-12; cst:12365; cnt:7; 2019.2.19 15:58
+ttl: Absolute Sniper; cst:1000; cnt:29; 2019.2.18 12:49
+ttl: Absolute Sniper; cst:1000; cnt:28; 2019.2.19 15:58
+ttl: Absolute Skin; cst:1000; cnt:10; 2019.2.2 9:35
+ttl: Absolute Skin; cst:1700; cnt:9; 2019.2.19 15:58
+ttl: Absolute engineer helmet; cst:3990; cnt:5; 2019.2.11 15:48
+ttl: Absolute engineer helmet; cst:4000; cnt:4; 2019.2.19 15:58
+ttl: Absolute sniper helmet; cst:4000; cnt:4; 2019.2.11 15:48
+ttl: Absolute sniper helmet; cst:4000; cnt:3; 2019.2.19 15:58
+ttl: Tactical grip (AK "Alpha"); cst:40; cnt:1090; 2019.2.18 20:34
+ttl: Tactical grip (AK "Alpha"); cst:40; cnt:1097; 2019.2.19 15:58
+ttl: Scope Hartman MH1  (AK "Alpha"); cst:40; cnt:488; 2019.2.18 20:34
+ttl: Scope Hartman MH1  (AK "Alpha"); cst:40; cnt:486; 2019.2.19 15:58
+ttl: Scope Romeo4 (AK "Alpha"); cst:40; cnt:360; 2019.2.18 20:34
+ttl: Scope Romeo4 (AK "Alpha"); cst:40; cnt:357; 2019.2.19 15:58
+ttl: Supressor (AK "Alpha"); cst:190; cnt:28; 2019.2.18 21:24
+ttl: Supressor (AK "Alpha"); cst:195; cnt:27; 2019.2.19 15:58
+ttl: Tactical silencer (AK "Alpha"); cst:250; cnt:23; 2019.2.18 21:24
+ttl: Tactical silencer (AK "Alpha"); cst:195; cnt:26; 2019.2.19 15:58
+ttl: K.I.W.I. Skin; cst:40; cnt:127; 2019.2.18 12:21
+ttl: K.I.W.I. Skin; cst:40; cnt:128; 2019.2.19 15:58
+ttl: Absolute Desert Eagle; cst:420; cnt:30; 2019.2.18 12:21
+ttl: Absolute Desert Eagle; cst:500; cnt:29; 2019.2.19 15:58
+ttl: Tigerstripe Skin; cst:40; cnt:153; 2019.2.18 12:55
+ttl: Tigerstripe Skin; cst:40; cnt:154; 2019.2.19 15:58
+ttl: Tigerstripe Skin; cst:40; cnt:69; 2019.2.18 20:37
+ttl: Tigerstripe Skin; cst:40; cnt:71; 2019.2.19 15:58
+ttl: Tigerstripe Skin; cst:40; cnt:96; 2019.2.18 12:21
+ttl: Tigerstripe Skin; cst:40; cnt:99; 2019.2.19 15:58
+ttl: K.I.W.I. vest; cst:99; cnt:305; 2019.2.18 19:15
+ttl: K.I.W.I. vest; cst:100; cnt:310; 2019.2.19 15:58
+ttl: K.I.W.I. shoes; cst:99; cnt:261; 2019.2.18 16:49
+ttl: K.I.W.I. shoes; cst:99; cnt:262; 2019.2.19 15:58
+ttl: K.I.W.I. gloves; cst:220; cnt:188; 2019.2.18 20:54
+ttl: K.I.W.I. gloves; cst:220; cnt:189; 2019.2.19 15:58
+ttl: K.I.W.I. Skin; cst:160; cnt:53; 2019.2.18 12:21
+ttl: K.I.W.I. Skin; cst:160; cnt:54; 2019.2.19 15:58
+ttl: K.I.W.I. Skin; cst:40; cnt:231; 2019.2.18 12:21
+ttl: K.I.W.I. Skin; cst:40; cnt:233; 2019.2.19 15:58
+ttl: K.I.W.I. Skin; cst:40; cnt:732; 2019.2.18 16:50
+ttl: K.I.W.I. Skin; cst:40; cnt:730; 2019.2.19 15:58
+ttl: K.I.W.I. Skin; cst:100; cnt:247; 2019.2.18 16:58
+ttl: K.I.W.I. Skin; cst:100; cnt:245; 2019.2.19 15:58
+ttl: K.I.W.I. Skin; cst:40; cnt:433; 2019.2.18 12:21
+ttl: K.I.W.I. Skin; cst:40; cnt:432; 2019.2.19 15:58
+ttl: K.I.W.I. M48 Bowie Knife; cst:171; cnt:39; 2019.2.18 20:7
+ttl: K.I.W.I. M48 Bowie Knife; cst:171; cnt:42; 2019.2.19 15:58
+ttl: K.I.W.I. KA-BAR Kukri Machete; cst:99; cnt:74; 2019.2.18 12:21
+ttl: K.I.W.I. KA-BAR Kukri Machete; cst:99; cnt:72; 2019.2.19 15:58
+ttl: K.I.W.I. Tactical Axe; cst:1000; cnt:27; 2019.2.18 12:21
+ttl: K.I.W.I. Tactical Axe; cst:1000; cnt:28; 2019.2.19 15:58
+ttl: Tigerstripe Skin; cst:40; cnt:307; 2019.2.18 18:45
+ttl: Tigerstripe Skin; cst:40; cnt:308; 2019.2.19 15:58
+ttl: Tigerstripe Skin; cst:40; cnt:478; 2019.2.18 19:18
+ttl: Tigerstripe Skin; cst:40; cnt:479; 2019.2.19 15:58
+ttl: Tigerstripe Skin; cst:40; cnt:307; 2019.2.18 12:21
+ttl: Tigerstripe Skin; cst:40; cnt:306; 2019.2.19 15:58
+ttl: Tigerstripe Skin; cst:40; cnt:499; 2019.2.18 19:17
+ttl: Tigerstripe Skin; cst:40; cnt:501; 2019.2.19 15:58
+ttl: Tigerstripe Skin; cst:40; cnt:451; 2019.2.18 19:12
+ttl: Tigerstripe Skin; cst:40; cnt:448; 2019.2.19 15:58
+ttl: Tigerstripe Skin; cst:40; cnt:336; 2019.2.18 20:48
+ttl: Tigerstripe Skin; cst:40; cnt:337; 2019.2.19 15:58
+ttl: Tigerstripe Skin; cst:40; cnt:435; 2019.2.18 19:18
+ttl: Tigerstripe Skin; cst:40; cnt:438; 2019.2.19 15:58
+ttl: Tigerstripe Skin; cst:40; cnt:553; 2019.2.15 22:40
+ttl: Tigerstripe Skin; cst:40; cnt:551; 2019.2.19 15:58
+ttl: Kriss Super V Custom; cst:9523; cnt:12; 2019.2.18 19:12
+ttl: Kriss Super V Custom; cst:8999; cnt:12; 2019.2.19 15:58
+ttl: Desert Camo Skin; cst:960; cnt:19; 2019.2.18 12:21
+ttl: Desert Camo Skin; cst:952; cnt:19; 2019.2.19 15:58
+ttl: Grip Pod (KRISS Custom); cst:40; cnt:411; 2019.2.18 20:4
+ttl: Grip Pod (KRISS Custom); cst:40; cnt:412; 2019.2.19 15:58
+ttl: Tactical Grip (KRISS Custom); cst:40; cnt:867; 2019.2.18 20:37
+ttl: Tactical Grip (KRISS Custom); cst:40; cnt:871; 2019.2.19 15:58
+ttl: Scope Redring MK2 (KRISS Custom); cst:40; cnt:470; 2019.2.18 19:37
+ttl: Scope Redring MK2 (KRISS Custom); cst:40; cnt:471; 2019.2.19 15:58
+ttl: Supressor (KRISS Custom); cst:200; cnt:22; 2019.2.18 20:54
+ttl: Supressor (KRISS Custom); cst:200; cnt:23; 2019.2.19 15:58
+ttl: K.I.W.I. Skin; cst:40; cnt:237; 2019.2.18 12:21
+ttl: K.I.W.I. Skin; cst:40; cnt:238; 2019.2.19 15:58
+ttl: K.I.W.I. Skin; cst:40; cnt:141; 2019.2.18 16:18
+ttl: K.I.W.I. Skin; cst:65; cnt:140; 2019.2.19 15:58
+ttl: K.I.W.I. Gepard GM6 Lynx; cst:190; cnt:188; 2019.2.18 20:58
+ttl: K.I.W.I. Gepard GM6 Lynx; cst:190; cnt:187; 2019.2.19 15:58
+ttl: K.I.W.I. H.G.C. Custom; cst:169; cnt:195; 2019.2.18 12:21
+ttl: K.I.W.I. H.G.C. Custom; cst:150; cnt:196; 2019.2.19 15:58
+ttl: K.I.W.I. VHS-2; cst:389; cnt:163; 2019.2.18 20:4
+ttl: K.I.W.I. VHS-2; cst:390; cnt:163; 2019.2.19 15:58
+ttl: K.I.W.I. Uzi Pro; cst:1940; cnt:34; 2019.2.18 18:35
+ttl: K.I.W.I. Uzi Pro; cst:1900; cnt:35; 2019.2.19 15:58
+CHECKED 30%
+ttl: K.I.W.I. MPA 930DMG; cst:93; cnt:152; 2019.2.18 20:12
+ttl: K.I.W.I. MPA 930DMG; cst:70; cnt:151; 2019.2.19 15:58
+ttl: K.I.W.I. Skin; cst:140; cnt:12; 2019.2.18 21:37
+ttl: K.I.W.I. Skin; cst:140; cnt:11; 2019.2.19 15:58
+ttl: K.I.W.I. Skin; cst:198; cnt:20; 2019.2.18 12:21
+ttl: K.I.W.I. Skin; cst:198; cnt:21; 2019.2.19 15:58
+ttl: K.I.W.I. FN FAL DSA-58; cst:6560; cnt:3; 2019.2.15 20:11
+ttl: K.I.W.I. FN FAL DSA-58; cst:6560; cnt:2; 2019.2.19 15:58
+CHECKED 50%
+ttl: Icebreaker Skin; cst:66; cnt:253; 2019.2.18 19:4
+ttl: Icebreaker Skin; cst:40; cnt:255; 2019.2.19 15:58
+ttl: Icebreaker Skin; cst:47; cnt:259; 2019.2.18 18:24
+ttl: Icebreaker Skin; cst:40; cnt:263; 2019.2.19 15:58
+ttl: Syndicate Engineer Helmet; cst:700; cnt:19; 2019.2.18 20:59
+ttl: Syndicate Engineer Helmet; cst:680; cnt:19; 2019.2.19 15:58
+ttl: Syndicate Engineer Vest; cst:520; cnt:30; 2019.2.18 20:59
+ttl: Syndicate Engineer Vest; cst:410; cnt:30; 2019.2.19 15:58
+ttl: Syndicate Medic Helmet; cst:570; cnt:31; 2019.2.18 20:12
+ttl: Syndicate Medic Helmet; cst:480; cnt:28; 2019.2.19 15:58
+ttl: Syndicate Medic Vest; cst:290; cnt:39; 2019.2.18 20:50
+ttl: Syndicate Medic Vest; cst:276; cnt:37; 2019.2.19 15:58
+ttl: Syndicate Gloves; cst:1000; cnt:16; 2019.2.18 20:58
+ttl: Syndicate Gloves; cst:1020; cnt:14; 2019.2.19 15:58
+ttl: Syndicate Shoes; cst:595; cnt:32; 2019.2.18 20:49
+ttl: Syndicate Shoes; cst:599; cnt:31; 2019.2.19 15:58
+ttl: Syndicate Saiga Spike; cst:200; cnt:53; 2019.2.18 20:58
+ttl: Syndicate Saiga Spike; cst:199; cnt:53; 2019.2.19 15:58
+ttl: Syndicate Sniper Helmet; cst:399; cnt:36; 2019.2.18 20:13
+ttl: Syndicate Sniper Helmet; cst:400; cnt:33; 2019.2.19 15:58
+ttl: Syndicate Sniper vest; cst:280; cnt:55; 2019.2.18 21:2
+ttl: Syndicate Sniper vest; cst:230; cnt:54; 2019.2.19 15:58
+ttl: Syndicate Rifleman Helmet; cst:700; cnt:10; 2019.2.18 20:57
+ttl: Syndicate Rifleman Helmet; cst:694; cnt:13; 2019.2.19 15:58
+ttl: Syndicate Rifleman Vest; cst:500; cnt:32; 2019.2.18 19:1
+ttl: Syndicate Rifleman Vest; cst:510; cnt:31; 2019.2.19 15:58
+ttl: Carbon Remington MSR; cst:14000; cnt:1; 2019.2.3 3:37
+ttl: Carbon Remington MSR; cst:12000; cnt:1; 2019.2.19 15:58
+ttl: Carbon Skin; cst:40; cnt:622; 2019.2.18 19:48
+ttl: Carbon Skin; cst:40; cnt:626; 2019.2.19 15:58
+ttl: Carbon Skin; cst:40; cnt:714; 2019.2.18 19:12
+ttl: Carbon Skin; cst:40; cnt:719; 2019.2.19 15:58
+ttl: Carbon Skin; cst:40; cnt:805; 2019.2.18 19:30
+ttl: Carbon Skin; cst:40; cnt:811; 2019.2.19 15:58
+ttl: Carbon Skin; cst:40; cnt:747; 2019.2.18 21:16
+ttl: Carbon Skin; cst:40; cnt:755; 2019.2.19 15:58
+ttl: Carbon Skin; cst:40; cnt:651; 2019.2.18 19:48
+ttl: Carbon Skin; cst:40; cnt:659; 2019.2.19 15:58
+ttl: Carbon Skin; cst:40; cnt:669; 2019.2.18 21:1
+ttl: Carbon Skin; cst:40; cnt:678; 2019.2.19 15:58
+ttl: Syndicate Skin; cst:40; cnt:634; 2019.2.18 20:48
+ttl: Syndicate Skin; cst:40; cnt:642; 2019.2.19 15:58
+ttl: Syndicate Skin; cst:40; cnt:201; 2019.2.18 21:32
+ttl: Syndicate Skin; cst:40; cnt:209; 2019.2.19 15:58
+ttl: Syndicate Skin; cst:40; cnt:317; 2019.2.18 21:32
+ttl: Syndicate Skin; cst:40; cnt:333; 2019.2.19 15:58
+CHECKED 30%
+ttl: Syndicate Skin; cst:283; cnt:21; 2019.2.18 20:49
+ttl: Syndicate Skin; cst:200; cnt:30; 2019.2.19 15:58
+ttl: Syndicate Skin; cst:40; cnt:2292; 2019.2.18 21:27
+ttl: Syndicate Skin; cst:40; cnt:2300; 2019.2.19 15:58
+ttl: Carbon M48 Bowie Knife; cst:40; cnt:1962; 2019.2.18 20:49
+ttl: Carbon M48 Bowie Knife; cst:40; cnt:1966; 2019.2.19 15:58
+ttl: Syndicate Cleaver; cst:40; cnt:292; 2019.2.18 21:16
+ttl: Syndicate Cleaver; cst:40; cnt:299; 2019.2.19 15:58
+ttl: Defence Falcon Bipod (Kraken CDX MC); cst:40; cnt:343; 2019.2.18 20:4
+ttl: Defence Falcon Bipod (Kraken CDX MC); cst:40; cnt:360; 2019.2.19 15:58
+ttl: Sniper Rifle Bipod (Kraken CDX MC); cst:40; cnt:512; 2019.2.18 20:4
+ttl: Sniper Rifle Bipod (Kraken CDX MC); cst:40; cnt:519; 2019.2.19 15:58
+ttl: Defence Precision Silencer  (Kraken CDX MC); cst:40; cnt:217; 2019.2.18 18:18
+ttl: Defence Precision Silencer  (Kraken CDX MC); cst:40; cnt:219; 2019.2.19 15:58
+ttl: Kraken Special Suppressor  (Kraken CDX MC); cst:40; cnt:255; 2019.2.18 19:21
+ttl: Kraken Special Suppressor  (Kraken CDX MC); cst:40; cnt:258; 2019.2.19 15:58
+ttl: Sniper Rifle Scope (Kraken CDX MC); cst:170; cnt:17; 2019.2.18 19:7
+ttl: Sniper Rifle Scope (Kraken CDX MC); cst:150; cnt:17; 2019.2.19 15:58
+CHECKED 50%
+ttl: ATACR 4.5x scope (Kraken CDX MC); cst:250; cnt:24; 2019.2.18 19:7
+ttl: ATACR 4.5x scope (Kraken CDX MC); cst:150; cnt:25; 2019.2.19 15:58
+ttl: CDX-MC Kraken; cst:9600; cnt:10; 2019.2.18 20:2
+ttl: CDX-MC Kraken; cst:9600; cnt:11; 2019.2.19 15:58
+ttl: Syndicate Fabarm XLR 5 Prestige; cst:3900; cnt:1; 2019.2.18 12:21
+ttl: Syndicate Fabarm XLR 5 Prestige; cst:3000; cnt:4; 2019.2.19 15:58
+ttl: Carbon Rhino 60 DS; cst:40; cnt:1872; 2019.2.18 21:16
+ttl: Carbon Rhino 60 DS; cst:40; cnt:1878; 2019.2.19 15:58
+ttl: Carbon Skin; cst:40; cnt:734; 2019.2.18 20:53
+ttl: Carbon Skin; cst:40; cnt:741; 2019.2.19 15:58
+ttl: Carbon Skin; cst:40; cnt:892; 2019.2.18 19:21
+ttl: Carbon Skin; cst:40; cnt:896; 2019.2.19 15:58
+ttl: Carbon Skin; cst:40; cnt:472; 2019.2.18 18:46
+ttl: Carbon Skin; cst:40; cnt:479; 2019.2.19 15:58
+ttl: Carbon PP2000; cst:58; cnt:151; 2019.2.18 18:7
+ttl: Carbon PP2000; cst:66; cnt:150; 2019.2.19 15:58
+ttl: Carbon Skin; cst:40; cnt:491; 2019.2.18 20:57
+ttl: Carbon Skin; cst:40; cnt:497; 2019.2.19 15:58
+ttl: Carbon Skin; cst:40; cnt:579; 2019.2.18 20:57
+ttl: Carbon Skin; cst:40; cnt:588; 2019.2.19 15:58
+ttl: Carbon Skin; cst:40; cnt:536; 2019.2.18 20:3
+ttl: Carbon Skin; cst:40; cnt:545; 2019.2.19 15:58
+ttl: Carbon Skin; cst:40; cnt:326; 2019.2.18 20:57
+ttl: Carbon Skin; cst:40; cnt:336; 2019.2.19 15:58
+ttl: Carbon Skin; cst:40; cnt:345; 2019.2.18 20:56
+ttl: Carbon Skin; cst:40; cnt:366; 2019.2.19 15:58
+ttl: Carbon Skin; cst:40; cnt:148; 2019.2.18 21:32
+ttl: Carbon Skin; cst:40; cnt:160; 2019.2.19 15:58
+ttl: Syndicate H&K MP5A5 Custom; cst:188; cnt:88; 2019.2.18 21:23
+ttl: Syndicate H&K MP5A5 Custom; cst:157; cnt:94; 2019.2.19 15:58
+ttl: Carbon MSBS Radon; cst:61; cnt:266; 2019.2.18 21:11
+ttl: Carbon MSBS Radon; cst:50; cnt:272; 2019.2.19 15:58
+CHECKED 50%
+ttl: Carbon Sidewinder Venom; cst:70; cnt:137; 2019.2.18 18:46
+ttl: Carbon Sidewinder Venom; cst:40; cnt:141; 2019.2.19 15:58
+ttl: Carbon AWM; cst:67; cnt:109; 2019.2.18 20:37
+ttl: Carbon AWM; cst:55; cnt:112; 2019.2.19 15:58
+ttl: Syndicate Saiga Custom; cst:100; cnt:100; 2019.2.18 20:5
+ttl: Syndicate Saiga Custom; cst:90; cnt:102; 2019.2.19 15:58
+ttl: Syndicate M48 Bowie Knife; cst:60; cnt:85; 2019.2.18 19:45
+ttl: Syndicate M48 Bowie Knife; cst:60; cnt:86; 2019.2.19 15:58
+ttl: Syndicate AT308; cst:250; cnt:48; 2019.2.18 21:23
+ttl: Syndicate AT308; cst:200; cnt:61; 2019.2.19 15:58
+CHECKED 50%
+ttl: Syndicate SAI GRY AR-15; cst:500; cnt:41; 2019.2.18 20:0
+ttl: Syndicate SAI GRY AR-15; cst:250; cnt:49; 2019.2.19 15:58
+ttl: Carbon Magpul FMG-9; cst:1100; cnt:21; 2019.2.18 21:15
+ttl: Carbon Magpul FMG-9; cst:1350; cnt:19; 2019.2.19 15:58
+ttl: Carbon RPD Custom; cst:1500; cnt:19; 2019.2.18 20:27
+ttl: Carbon RPD Custom; cst:1240; cnt:22; 2019.2.19 15:58
+ttl: Carbon Fabarm P.S.S.10; cst:1000; cnt:3; 2019.2.18 15:58
+ttl: Carbon Fabarm P.S.S.10; cst:900; cnt:4; 2019.2.19 15:58
+ttl: Flor de Muerto Skin; cst:1300; cnt:11; 2019.2.18 20:6
+ttl: Flor de Muerto Skin; cst:1010; cnt:14; 2019.2.19 15:58
+ttl: Flor de Muerto Skin; cst:120; cnt:28; 2019.2.18 19:53
+ttl: Flor de Muerto Skin; cst:200; cnt:27; 2019.2.19 15:58
+ttl: Flor de Muerto Skin; cst:200; cnt:18; 2019.2.18 15:8
+ttl: Flor de Muerto Skin; cst:250; cnt:18; 2019.2.19 15:58
+ttl: Flor de Muerto Skin; cst:40; cnt:479; 2019.2.18 20:51
+ttl: Flor de Muerto Skin; cst:40; cnt:477; 2019.2.19 15:58
+ttl: ; cst:40; cnt:18267; 2019.2.18 21:16
+ttl: ; cst:40; cnt:18314; 2019.2.19 15:58
+ttl: ; cst:40; cnt:23812; 2019.2.18 21:21
+ttl: ; cst:40; cnt:23829; 2019.2.19 15:58
+ttl: ; cst:40; cnt:2507; 2019.2.18 20:40
+ttl: ; cst:40; cnt:2511; 2019.2.19 15:58
+ttl: ; cst:40; cnt:781; 2019.2.18 21:16
+ttl: ; cst:40; cnt:776; 2019.2.19 15:58
+ttl: ; cst:40; cnt:1287; 2019.2.18 21:29
+ttl: ; cst:40; cnt:1299; 2019.2.19 15:58
+ttl: ; cst:40; cnt:10565; 2019.2.18 21:34
+ttl: ; cst:40; cnt:10579; 2019.2.19 15:58
+ttl: ; cst:40; cnt:2818; 2019.2.18 21:37
+ttl: ; cst:40; cnt:2841; 2019.2.19 15:58
+ttl: ; cst:40; cnt:1866; 2019.2.18 21:30
+ttl: ; cst:40; cnt:1871; 2019.2.19 15:58
+ttl: Syndicate Skin; cst:40; cnt:642; 2019.2.19 15:58
+ttl: Syndicate Skin; cst:40; cnt:643; 2019.2.19 15:59
+ttl: Syndicate Saiga Custom; cst:90; cnt:102; 2019.2.19 15:58
+ttl: Syndicate Saiga Custom; cst:90; cnt:103; 2019.2.19 15:59
+ttl: Sniper Rifle Scope (Kraken CDX MC); cst:150; cnt:17; 2019.2.19 15:58
+ttl: Sniper Rifle Scope (Kraken CDX MC); cst:190; cnt:17; 2019.2.19 15:59
+ttl: ATACR 4.5x scope (Kraken CDX MC); cst:150; cnt:25; 2019.2.19 15:58
+ttl: ATACR 4.5x scope (Kraken CDX MC); cst:200; cnt:25; 2019.2.19 15:59
+ttl: Carbon MSBS Radon; cst:50; cnt:272; 2019.2.19 15:58
+ttl: Carbon MSBS Radon; cst:50; cnt:271; 2019.2.19 15:59
+ttl: Carbon MSBS Radon; cst:50; cnt:271; 2019.2.19 15:59
+ttl: Carbon MSBS Radon; cst:67; cnt:271; 2019.2.19 16:0
+ttl: ; cst:40; cnt:2841; 2019.2.19 15:58
+ttl: ; cst:40; cnt:2842; 2019.2.19 16:0
+CHECKED 50%
+ttl: Sniper Rifle Scope (Kraken CDX MC); cst:190; cnt:17; 2019.2.19 15:59
+ttl: Sniper Rifle Scope (Kraken CDX MC); cst:100; cnt:18; 2019.2.19 16:2
+CHECKED 50%
+ttl: ATACR 4.5x scope (Kraken CDX MC); cst:200; cnt:25; 2019.2.19 15:59
+ttl: ATACR 4.5x scope (Kraken CDX MC); cst:100; cnt:26; 2019.2.19 16:2
+ttl: ; cst:40; cnt:776; 2019.2.19 15:58
+ttl: ; cst:40; cnt:777; 2019.2.19 16:2
+ttl: ; cst:40; cnt:23829; 2019.2.19 15:58
+ttl: ; cst:40; cnt:23830; 2019.2.19 16:2
+ttl: ; cst:40; cnt:777; 2019.2.19 16:2
+ttl: ; cst:40; cnt:778; 2019.2.19 16:2
+ttl: ; cst:40; cnt:1871; 2019.2.19 15:58
+ttl: ; cst:40; cnt:1872; 2019.2.19 16:2
+CHECKED 50%
+ttl: Carbon MSBS Radon; cst:67; cnt:271; 2019.2.19 16:0
+ttl: Carbon MSBS Radon; cst:40; cnt:272; 2019.2.19 16:3
+ttl: Syndicate Skin; cst:200; cnt:30; 2019.2.19 15:58
+ttl: Syndicate Skin; cst:200; cnt:29; 2019.2.19 16:4
+ttl: Kriss Super V Custom; cst:8999; cnt:12; 2019.2.19 15:58
+ttl: Kriss Super V Custom; cst:8999; cnt:11; 2019.2.19 16:5
+ttl: ; cst:40; cnt:2842; 2019.2.19 16:0
+ttl: ; cst:40; cnt:2841; 2019.2.19 16:5
+ttl: ; cst:40; cnt:2841; 2019.2.19 16:5
+ttl: ; cst:40; cnt:2840; 2019.2.19 16:5
+ttl: Syndicate Engineer Vest; cst:410; cnt:30; 2019.2.19 15:58
+ttl: Syndicate Engineer Vest; cst:410; cnt:29; 2019.2.19 16:7
+ttl: Carbon MSBS Radon; cst:40; cnt:272; 2019.2.19 16:3
+ttl: Carbon MSBS Radon; cst:40; cnt:271; 2019.2.19 16:7
+ttl: Syndicate Engineer Helmet; cst:680; cnt:19; 2019.2.19 15:58
+ttl: Syndicate Engineer Helmet; cst:680; cnt:18; 2019.2.19 16:7
+ttl: Syndicate Shoes; cst:599; cnt:31; 2019.2.19 15:58
+ttl: Syndicate Shoes; cst:599; cnt:30; 2019.2.19 16:7
+ttl: Syndicate Engineer Helmet; cst:680; cnt:18; 2019.2.19 16:7
+ttl: Syndicate Engineer Helmet; cst:690; cnt:18; 2019.2.19 16:8
+ttl: Syndicate Engineer Vest; cst:410; cnt:29; 2019.2.19 16:7
+ttl: Syndicate Engineer Vest; cst:429; cnt:29; 2019.2.19 16:8
+ttl: Syndicate Shoes; cst:599; cnt:30; 2019.2.19 16:7
+ttl: Syndicate Shoes; cst:600; cnt:30; 2019.2.19 16:8
+ttl: Syndicate Skin; cst:200; cnt:29; 2019.2.19 16:4
+ttl: Syndicate Skin; cst:200; cnt:30; 2019.2.19 16:8
+ttl: Carbon MSBS Radon; cst:40; cnt:271; 2019.2.19 16:7
+ttl: Carbon MSBS Radon; cst:67; cnt:271; 2019.2.19 16:8
+ttl: Syndicate Gloves; cst:1020; cnt:14; 2019.2.19 15:58
+ttl: Syndicate Gloves; cst:1020; cnt:13; 2019.2.19 16:8
+ttl: ; cst:40; cnt:23830; 2019.2.19 16:2
+ttl: ; cst:40; cnt:23827; 2019.2.19 16:8
+ttl: ; cst:40; cnt:2511; 2019.2.19 15:58
+ttl: ; cst:40; cnt:2509; 2019.2.19 16:8
+ttl: ; cst:40; cnt:10579; 2019.2.19 15:58
+ttl: ; cst:40; cnt:10578; 2019.2.19 16:8
+ttl: ; cst:40; cnt:2840; 2019.2.19 16:5
+ttl: ; cst:40; cnt:2837; 2019.2.19 16:8
+ttl: Kriss Super V Custom; cst:8999; cnt:11; 2019.2.19 16:5
+ttl: Kriss Super V Custom; cst:8999; cnt:12; 2019.2.19 16:9
+ttl: Syndicate Gloves; cst:1020; cnt:13; 2019.2.19 16:8
+ttl: Syndicate Gloves; cst:1199; cnt:13; 2019.2.19 16:9
+ttl: ; cst:40; cnt:23827; 2019.2.19 16:8
+ttl: ; cst:40; cnt:23829; 2019.2.19 16:9
+ttl: ; cst:40; cnt:2509; 2019.2.19 16:8
+ttl: ; cst:40; cnt:2510; 2019.2.19 16:9
+ttl: ; cst:40; cnt:2837; 2019.2.19 16:8
+ttl: ; cst:40; cnt:2839; 2019.2.19 16:9
+ttl: K.I.W.I. Skin; cst:140; cnt:11; 2019.2.19 15:58
+ttl: K.I.W.I. Skin; cst:139; cnt:13; 2019.2.19 16:10
+ttl: Carbon RPD Custom; cst:1240; cnt:22; 2019.2.19 15:58
+ttl: Carbon RPD Custom; cst:1240; cnt:21; 2019.2.19 16:10
+ttl: Urban Skin; cst:90; cnt:13; 2019.2.19 15:58
+ttl: Urban Skin; cst:89; cnt:15; 2019.2.19 16:11
+ttl: Urban Skin; cst:99; cnt:13; 2019.2.19 15:58
+ttl: Urban Skin; cst:98; cnt:14; 2019.2.19 16:11
+ttl: K.I.W.I. Skin; cst:139; cnt:13; 2019.2.19 16:10
+ttl: K.I.W.I. Skin; cst:139; cnt:14; 2019.2.19 16:11
+ttl: Syndicate Skin; cst:40; cnt:333; 2019.2.19 15:58
+ttl: Syndicate Skin; cst:40; cnt:334; 2019.2.19 16:11
+ttl: Flor de Muerto Skin; cst:1010; cnt:14; 2019.2.19 15:58
+ttl: Flor de Muerto Skin; cst:1010; cnt:13; 2019.2.19 16:11
+ttl: Urban Skin; cst:98; cnt:14; 2019.2.19 16:11
+ttl: Urban Skin; cst:98; cnt:15; 2019.2.19 16:12
+ttl: Syndicate Saiga Custom; cst:90; cnt:103; 2019.2.19 15:59
+ttl: Syndicate Saiga Custom; cst:90; cnt:104; 2019.2.19 16:12
+ttl: ; cst:40; cnt:2839; 2019.2.19 16:9
+ttl: ; cst:40; cnt:2840; 2019.2.19 16:12
+ttl: Sniper Rifle Scope (Kraken CDX MC); cst:100; cnt:18; 2019.2.19 16:2
+ttl: Sniper Rifle Scope (Kraken CDX MC); cst:100; cnt:17; 2019.2.19 16:12
+ttl: ATACR 4.5x scope (Kraken CDX MC); cst:100; cnt:26; 2019.2.19 16:2
+ttl: ATACR 4.5x scope (Kraken CDX MC); cst:100; cnt:25; 2019.2.19 16:12
+ttl: Sniper Rifle Scope (Kraken CDX MC); cst:100; cnt:17; 2019.2.19 16:12
+ttl: Sniper Rifle Scope (Kraken CDX MC); cst:190; cnt:17; 2019.2.19 16:13
+ttl: ATACR 4.5x scope (Kraken CDX MC); cst:100; cnt:25; 2019.2.19 16:12
+ttl: ATACR 4.5x scope (Kraken CDX MC); cst:200; cnt:25; 2019.2.19 16:13
+ttl: Syndicate SAI GRY AR-15; cst:250; cnt:49; 2019.2.19 15:58
+ttl: Syndicate SAI GRY AR-15; cst:250; cnt:48; 2019.2.19 16:14
+ttl: Carbon Skin; cst:40; cnt:160; 2019.2.19 15:58
+ttl: Carbon Skin; cst:40; cnt:161; 2019.2.19 16:15
+ttl: Flor de Muerto Skin; cst:1010; cnt:13; 2019.2.19 16:11
+ttl: Flor de Muerto Skin; cst:1010; cnt:14; 2019.2.19 16:15
+ttl: Carbon Sidewinder Venom; cst:40; cnt:141; 2019.2.19 15:58
+ttl: Carbon Sidewinder Venom; cst:40; cnt:140; 2019.2.19 16:15
+ttl: Syndicate SAI GRY AR-15; cst:250; cnt:48; 2019.2.19 16:14
+ttl: Syndicate SAI GRY AR-15; cst:475; cnt:48; 2019.2.19 16:15
+ttl: Carbon Sidewinder Venom; cst:40; cnt:140; 2019.2.19 16:15
+ttl: Carbon Sidewinder Venom; cst:40; cnt:139; 2019.2.19 16:15
+ttl: Carbon Sidewinder Venom; cst:40; cnt:139; 2019.2.19 16:15
+ttl: Carbon Sidewinder Venom; cst:60; cnt:139; 2019.2.19 16:16

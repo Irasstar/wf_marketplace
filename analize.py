@@ -17,8 +17,8 @@ def get_data():
         'User-Agent': 'Mozilla/5.0 (Windows  NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
                       ' Chrome/66.0.3359.181 Safari/537.36',  # not critical, but better stay here
         'Cookie':
-            'mc=982f30b0311a7c53a3c26c44c877de5318db413234383632;'
-            'sdcs=ODPhKeNwWy6j71ZT;'
+            'mc=29b0ffdf23427b1a9e04d17ba781912218db413234383632;'
+            'sdcs=AB7W4QiT6KuYUq5v;'
     }
     try:
         r = session.get(url, headers=browser_headers)  # add exception
