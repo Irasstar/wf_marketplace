@@ -6,29 +6,30 @@ import time
 
 def get_data():
     """requests:
-	oauth - почитать
+    oauth - почитать
     https://wf.my.com/sdc?token=ffa9bfa0fd29d10b79f34ac8e46cdc68
-    login realized by cookie.
+    login realized by cookies.
     https://wf.cdn.gmru.net/static/wf.mail.ru/img/main/items/****.png
     """
-    url = 'https://wf.my.com/minigames/marketplace/api/all'
+    url = 'https://wf.my.com/minigames/marketplace/api/all'  # that is data-file of marketplace with all prices
     session = requests.session()
     browser_headers = {
         'User-Agent': 'Mozilla/5.0 (Windows  NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
                       ' Chrome/66.0.3359.181 Safari/537.36',  # not critical, but better stay here
         'Cookie':
-            'mc=29b0ffdf23427b1a9e04d17ba781912218db413234383632;'
-            'sdcs=AB7W4QiT6KuYUq5v;'
+            'mc=29b0ffdf23427b1a9e04d17ba781912218db413234383632;'  # account identificator
+            'sdcs=AB7W4QiT6KuYUq5v;'  # login token.
+                                      # You can get it after login on wf.my.com, than enter <url> and watch cookies
     }
     try:
-        r = session.get(url, headers=browser_headers)  # add exception
+        r = session.get(url, headers=browser_headers)  # get data-file
         session.close()
     except:
         return "E1"  # connection lost
     # add connection lost unit
 
     if r.json()['state'] == 'Fail':
-        return "E2" #login error
+        return "E2"  # login error
     tmp = r.json()['data']
     for i in tmp:
         i['year'] = str(datetime.datetime.now().date().year)
