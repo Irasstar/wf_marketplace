@@ -1,73 +1,55 @@
 import requests
-
+import datetime
 
 class LoginSystem:
-    """that class return dictionary with cookies"""
+    """this class return dictionary with cookies. This class calls in extractor and buy modules"""
 
-    def getheaders(self):
-        """this function connect to site and take mc(account odentificator) and sdcs(login token)
-        I call it in exctraktor for login wf.my.com"""
-        mc = '29b0ffdf23427b1a9e04d17ba781912218db413234383632'
-        sdcs = 'AB7W4QiT6KuYUq5v'
-        return {
+
+    def getcookies(self):
+        """"""
+        # You can get it after login on wf.my.com, than enter https://wf.my.com/minigames/marketplace/api/all
+        #  into web browser, press f12 and search ms, sdcs cookies
+        mc = 'e12e1300e1fe7ef98f94f9587d394e4618db413234383632'
+        sdcs = 'uPDS29c1NlnReAzh'
+        tmpdict = {
             'User-Agent': 'Mozilla/5.0 (Windows  NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
                           ' Chrome/66.0.3359.181 Safari/537.36',  # not critical, but better stay here
-            'Cookie':
-                'mc=' + mc + ';'  # account identificator
-                'sdcs=' + sdcs + ';'
+            'Cookie': 'mc=' + mc + '; ' + 'sdcs=' + sdcs + ';'  # account identificator
         }
+        return tmpdict
 
 
-class Extractor:
+class Extractor(LoginSystem):
     """this class extract data from wf.my.com"""
-# I will need to create container for data transfer. structure {datastatus: '', data: datadict}
-# datastatus == 'OK' mean, that all data is accept
-    def getdata(self):
-# get headers for login wf.my.com
-        headers = LoginSystem().getheaders()
-# create new session
-        session = requests.session()
-# url for getting json file with data
-        url = 'https://wf.my.com/minigames/marketplace/api/all'
-        try:
-# try get data
-            data = session.get(url, headers=headers)
-        except:
-#  void data if exception
-            data = None
+    # I will need to create container for data transfer. structure {datastatus: '', data: datadict}
+
+    def getjson(self):
+        def add_datetime(dict={}):
+            """add time parameter to data dict in json file"""
+            tmpdate = datetime.datetime.now()
+            for i in dict['data']:
+                i['datetime'] = str(tmpdate)
+            return dict
+
+        def get_data(url = 'https://wf.my.com/minigames/marketplace/api/all'):
+            """get data in json format from site wf.my.com"""
+            session = requests.session()
+            # url for getting json file with data
+            browser_headers = self.getcookies()
+            data = session.get(url, headers=browser_headers)  #get data from site
+            session.close()
             return data
-        session.close()
-        if data.json()['state'] == 'Fail':
-
-
-
-
-    # add connection lost unit
-
-    if r.json()['state'] == 'Fail':
-        return "E2"  # login error
-    tmp = r.json()['data']
-    for i in tmp:
-        i['year'] = str(datetime.datetime.now().date().year)
-        i['month'] = str(datetime.datetime.now().date().month)
-        i['day'] = str(datetime.datetime.now().date().day)
-        i['hour'] = str(datetime.datetime.now().hour)
-        i['min'] = str(datetime.datetime.now().minute)
-        if i['item'] != None:
-            i['item'] = i['item']['id']
-        else:
-            i['item'] = 'None'
-        if i['class'] == None:
-            i['class'] = 'None'
-        # print(i)
-    return tmp
-
-
-
-
-
+        #  need to add 'status' check !!!
+        tmpdate = add_datetime(get_data().json())
+        return tmpdate['data']
 
 
 if __name__ == '__main__':
-    login = LoginSystem()
-    print(login.getheaders())
+    login = Extractor()
+    data = login.getjson()
+
+    for i in data:
+        print(i['datetime'])
+    # date = datetime.datetime.now()
+    # print(date)
+    # print(date.year)
