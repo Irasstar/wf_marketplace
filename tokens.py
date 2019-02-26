@@ -47,7 +47,6 @@ class Extractor(LoginSystem):
 if __name__ == '__main__':
     login = Extractor()
     data = login.getjson()
-
     for i in data:
         print(i['datetime'])
     # date = datetime.datetime.now()
