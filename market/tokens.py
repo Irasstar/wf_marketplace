@@ -1,6 +1,6 @@
 import requests
 import datetime
-import pymongo
+import sqlite3
 
 
 class LoginSystem:
@@ -59,16 +59,16 @@ class LoginSystem:
     #     the_page = response.read()
     #     http_headers = response.info()
 
-    def getcookies(self):
+    def get_cookies(self):
         """"""
         # You can get it after login on wf.my.com, than enter https://wf.my.com/minigames/marketplace/api/all
         #  into web browser, press f12 and search ms, sdcs cookies
-        mc = 'e12e1300e1fe7ef98f94f9587d394e4618db413234383632'
-        sdcs = 'uPDS29c1NlnReAzh'
+        self.mc = 'aad830b8600870cfb3e0130bfc036db918db413234383632'
+        self.sdcs = 'FA10BDNrjOWH3YpQ'
         tmpdict = {
             'User-Agent': 'Mozilla/5.0 (Windows  NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
                           ' Chrome/66.0.3359.181 Safari/537.36',  # not critical, but better stay here
-            'Cookie': 'mc=' + mc + '; ' + 'sdcs=' + sdcs + ';'  # account identificator
+            'Cookie': 'mc=' + self.mc + '; ' + 'sdcs=' + self.sdcs + ';'  # account identificator
         }
         return tmpdict
 
@@ -89,7 +89,7 @@ class Extractor(LoginSystem):
             """get data in json format from site wf.my.com"""
             session = requests.session()
             # url for getting json file with data
-            browser_headers = self.getcookies()
+            browser_headers = self.get_cookies()
             data = session.get(url, headers=browser_headers)  # get data from site
             session.close()
             return data
@@ -103,45 +103,83 @@ class data_compare:
 
 
 class dbinstruments:
-    
-    dbaddr = "data\\mpdatabase.db"
+    """first of all, i need to change sqlite to postgree sql for saving full json data"""
+    def __init__(self):
+        self.dbfile = "data\\mpdatabase.db"
+        self.logfile = "log\\log.txt"
 
-    def writemongo(self, data):
-        pass
+    def connect(self):
+        self.conn = sqlite3.connect(self.dbfile)
+        self.cur = self.conn.cursor()
 
-    def writedata(self, data):
-        conn = sqlite3.connect(self.dbaddr)
-        cur = conn.cursor()
+    def disconnect(self):
+        """close with commit"""
+        self.conn.commit()
+        self.conn.close()
+
+    def read_last_record(self, entity_id):
+        self.cur.execute("SELECT * FROM id_" + str(entity_id) + " ORDER BY rec_id DESC LIMIT 1;")
+        lst = self.cur.fetchone()
+        if lst is not None:
+            return self.list_to_dict(lst)
+        else:
+            return None
+
+    def list_to_dict(self, list):
+        """This function convert data which reading from database like list to dictionary"""
+        return {
+            'type': list[1],
+            'entity_id': list[2],
+            'title': list[3],
+            'min_cost': list[4],
+            'count': list[5],
+            'item)id': list[6],
+            'kind': list[7],
+            'class': list[8],
+            'datetime': list[9],
+            }
+
+    def create_new_table(self, entity_id):
+        self.cur.execute("CREATE TABLE IF NOT EXISTS id_" + str(entity_id) + " (rec_id integer PRIMARY KEY, "
+                                                                                  "type text, "
+                                                                                  "entity_id text, "
+                                                                                  "title text, "
+                                                                                  "min_cost text, "
+                                                                                  "count text, "
+                                                                                  "item_id text, "
+                                                                                  "kind text, "
+                                                                                  "class text, "
+                                                                                  "datetime text);")
+
+    def write_data(self, json_data):
+        i = json_data
+        self.cur.execute("INSERT INTO id_" + str(i['entity_id']) +  # add only if first record on database
+                         " (type, entity_id, title, min_cost, count, item_id, kind, class, datetime ) "
+                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", [i['type'], i['entity_id'], i['title'],
+                                                                i['min_cost'], i['count'], i['item_id'], i['kind'],
+                                                                i['class'], i['datetime']])
+
+    def fill_database(self, data):
+        self.connect()
         for i in data:
             # create new table if not exist
-            cur.execute("CREATE TABLE IF NOT EXISTS id_" + str(i['entity_id']) + " (rec_id integer PRIMARY KEY, "
-                        "type text, "                        
-                        "entity_id text, "
-                        "title text, "
-                        "min_cost text, "
-                        "count text, "
-                        "item text, "
-                        "kind text, "
-                        "class text, "
-                        "datetime text);")
-            db_row = cur.execute("SELECT * FROM id_" + str(i['entity_id']) + ";").fetchall()
-            if len(db_row) == 0:
-                cur.execute("INSERT INTO id_" + str(i['entity_id']) +  # add only if first record on database
-                            " (type, entity_id, title, min_cost, count, item, kind, class, datetime ) "
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                            [i['type'], i['entity_id'], i['title'], i['min_cost'], i['count'], i['item'], i['kind'],
-                             i['class'], i['datetime']])
-            elif int(db_row[len(db_row) - 1][4]) != i['min_cost'] or int(db_row[len(db_row) - 1][5]) != i['count']:
-                cur.execute("INSERT INTO id_" + str(i['entity_id']) +  # add new record if change price or count items
-                            " (type, entity_id, title, min_cost, count, item, kind, class, datetime) "
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
-                            [i['type'], i['entity_id'], i['title'], i['min_cost'], i['count'], i['item'], i['kind'],
-                             i['class'], i['datetime']])
-        conn.commit()
-        conn.close()
+            self.create_new_table(i['entity_id'])
+            # read table. Better read last record. Potential slowest place in code
+            last_row = self.read_last_record(i['entity_id'])
+            # print(db_row[4], ' ', db_row[5])
+            if last_row is None:
+            # true means that table is empty = > wright all data
+                self.write_data(i)
+            elif int(last_row['min_cost']) != i['min_cost'] or int(last_row['count']) != i['count']:
+            # if table is not empty - add new record only when change price or count of items
+                self.write_data(i)
+        self.disconnect()
+
+    def read_table(self):
+        pass
 
 
 if __name__ == '__main__':
-    test = {'json1': '1', 'json2': '2'}
     db = dbinstruments()
-    db.writemongo(test)
+    data = Extractor()
+    db.fill_database(data.getjson())
