@@ -1,6 +1,8 @@
 import requests
 import datetime
 import sqlite3
+import time
+import threading
 
 
 class LoginSystem:
@@ -59,18 +61,18 @@ class LoginSystem:
     #     the_page = response.read()
     #     http_headers = response.info()
 
-    def get_cookies(self):
+    def get_headers(self):
         """"""
         # You can get it after login on wf.my.com, than enter https://wf.my.com/minigames/marketplace/api/all
         #  into web browser, press f12 and search ms, sdcs cookies
         mc = 'cfca4eff86d27621a5a8e2b054b40b6618db413234383632'
         sdcs = 'WUd6IVibK5GPrq3f'
-        tmpdict = {
+        headers = {
             'User-Agent': 'Mozilla/5.0 (Windows  NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
                           ' Chrome/66.0.3359.181 Safari/537.36',  # not critical, but better stay here
             'Cookie': 'mc=' + mc + '; ' + 'sdcs=' + sdcs + ';'  # account identificator
         }
-        return tmpdict
+        return headers
 
 
 class Extractor(LoginSystem):
@@ -89,7 +91,7 @@ class Extractor(LoginSystem):
             """get data in json format from site wf.my.com"""
             session = requests.session()
             # url for getting json file with data
-            browser_headers = self.get_cookies()
+            browser_headers = self.get_headers()
             data = session.get(url, headers=browser_headers)  # get data from site
             session.close()
             return data
@@ -98,11 +100,7 @@ class Extractor(LoginSystem):
         return tmpdate['data']
 
 
-class data_compare:
-    pass
-
-
-class dbinstruments:
+class SQLInstruments:
     """first of all, i need to change sqlite to mongo database for saving data in json format"""
     def __init__(self, dbfile=r'data\mpdatabase.db'):
         self.logfile = r'log\log.txt'
@@ -188,32 +186,45 @@ class dbinstruments:
                                                                 i['min_cost'], i['count'], i['item_id'], i['kind'],
                                                                 i['class'], i['datetime']])
 
-    def fill_database(self, input_data):  # out of there this function. That is analise module function
-        # self.connect()
-        for dct in input_data:
-            # create new table if not exist
-            self.create_new_table(dct['entity_id'])
-            # read table. Better read last record. Potential slowest place in code
-            last_row = self.get_last_records(dct['entity_id'])
-            # print(db_row[4], ' ', db_row[5])
-            if last_row is None:
-                # true means that table is empty => add new record
-                self.write_data(dct)
-            elif last_row[0]['min_cost'] != dct['min_cost'] or last_row[0]['count'] != dct['count']:
-                # last_row[0]['min_cost']. row[0] needs bk get_last_records return list of dicts
-                # if table is not empty - add new record only if price or count of items changes
-                self.write_data(dct)
-        # self.disconnect()
+
+class DatabaseCore:
+
+    def fill_db(self, del_sec):
+        while True:
+            sql = SQLInstruments()
+            ext = Extractor()
+            input_data = ext.getjson()
+            for dct in input_data:
+                # create new table if not exist
+                sql.create_new_table(dct['entity_id'])
+                # read table. Better read last record. Potential slowest place in code
+                last_row = sql.get_last_records(dct['entity_id'])[0]
+                if last_row is None:
+                    # true means that table is empty => add new record
+                    sql.write_data(dct)
+                elif last_row['min_cost'] != dct['min_cost'] or last_row['count'] != dct['count']:
+                    # last_row[0]['min_cost']. row[0] needs bk get_last_records return list of dicts
+                    # if table is not empty - add new record only if price or count of items changes
+                    sql.write_data(dct)
+                    if last_row['min_cost'] > dct['min_cost']*2:
+                        print("BINGO!!!")
+                    print('ttl: ' + last_row['title'] + '; cst:' + str(last_row['min_cost']) + '; cnt:' +
+                          str(last_row['count']) + ' date: ' + last_row['datetime'])
+                    print('ttl: ' + dct['title'] + '; cst:' + str(dct['min_cost']) + '; cnt:' +
+                          str(dct['count']) + ' date: ' + dct['datetime'])
+            # break
+        time.sleep(del_sec)
+
+    def run_core(self):
+        # threading.Thread(target=self.fill_db(5)).start()
+        self.fill_db(5)
+
+
+class DataCompare:
+    pass
 
 
 if __name__ == '__main__':
-    db = dbinstruments()
-    data = Extractor()
-    db.fill_database(data.getjson())
-    lst = db.get_tables_id_list()
-    for i in lst:
-        print(i)
-        rows = db.get_table_data(i)
-        for row in rows:
-            print(row)
-
+    core = DatabaseCore()
+    core.run_core()
+    print('123')
