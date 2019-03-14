@@ -8,7 +8,7 @@ class LoginSystem:
     # def login(self):
     #     session = requests.session()
     #     data = {'email': 'valendaanatoli@gmail.com',
-    #             'password': 'star4309',
+    #             'password': '',
     #             'continue': 'https://account.my.com/login_continue/?with_fb=1&with_tw=1&lang=en_'
     #             'US&client_id=wf.my.com&'
     #                         'continue=https%3A%2F%2Fwf.my.com%2Fen%2F',
@@ -63,12 +63,12 @@ class LoginSystem:
         """"""
         # You can get it after login on wf.my.com, than enter https://wf.my.com/minigames/marketplace/api/all
         #  into web browser, press f12 and search ms, sdcs cookies
-        self.mc = 'aad830b8600870cfb3e0130bfc036db918db413234383632'
-        self.sdcs = 'FA10BDNrjOWH3YpQ'
+        mc = 'cfca4eff86d27621a5a8e2b054b40b6618db413234383632'
+        sdcs = 'WUd6IVibK5GPrq3f'
         tmpdict = {
             'User-Agent': 'Mozilla/5.0 (Windows  NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
                           ' Chrome/66.0.3359.181 Safari/537.36',  # not critical, but better stay here
-            'Cookie': 'mc=' + self.mc + '; ' + 'sdcs=' + self.sdcs + ';'  # account identificator
+            'Cookie': 'mc=' + mc + '; ' + 'sdcs=' + sdcs + ';'  # account identificator
         }
         return tmpdict
 
@@ -85,7 +85,7 @@ class Extractor(LoginSystem):
                 i['datetime'] = str(tmpdate)
             return dict
 
-        def get_data(url = 'https://wf.my.com/minigames/marketplace/api/all'):  # data file url
+        def get_data(url='https://wf.my.com/minigames/marketplace/api/all'):  # data file url
             """get data in json format from site wf.my.com"""
             session = requests.session()
             # url for getting json file with data
@@ -103,13 +103,17 @@ class data_compare:
 
 
 class dbinstruments:
-    """first of all, i need to change sqlite to postgree sql for saving full json data"""
-    def __init__(self):
-        self.dbfile = "data\\mpdatabase.db"
-        self.logfile = "log\\log.txt"
+    """first of all, i need to change sqlite to mongo database for saving data in json format"""
+    def __init__(self, dbfile=r'data\mpdatabase.db'):
+        self.logfile = r'log\log.txt'
+        self.connect(dbfile)
 
-    def connect(self):
-        self.conn = sqlite3.connect(self.dbfile)
+    def __del__(self):
+        self.conn.commit()
+        self.conn.close()
+
+    def connect(self, dbfile):
+        self.conn = sqlite3.connect(dbfile)
         self.cur = self.conn.cursor()
 
     def disconnect(self):
@@ -117,11 +121,36 @@ class dbinstruments:
         self.conn.commit()
         self.conn.close()
 
-    def read_last_record(self, entity_id):
-        self.cur.execute("SELECT * FROM id_" + str(entity_id) + " ORDER BY rec_id DESC LIMIT 1;")
-        lst = self.cur.fetchone()
+    def commit(self):
+        self.conn.commit()
+
+    def get_tables_id_list(self):
+        # request return tuple data format
+        tuple_list = self.cur.execute("SELECT name FROM sqlite_master WHERE type='table';").fetchall()
+        string_list = ['%s' % i for i in tuple_list]  # convert tuple list to string list. data format is id_xxxx
+        ids = map(lambda x: x[3:], string_list)  # separate items ID
+        return ids
+
+    def get_table_data(self, entity_id):
+        self.cur.execute("SELECT * FROM id_" + str(entity_id))
+        lst = self.cur.fetchall()
         if lst is not None:
-            return self.list_to_dict(lst)
+            result = []
+            for i in lst:
+                result.append(self.list_to_dict(i))  # create list of dict if I request more than one row
+            return result
+        else:
+            return None
+
+    def get_last_records(self, entity_id, rows_count=1):
+        """this function return 'row_count' last records in 'entity_id table'"""
+        self.cur.execute("SELECT * FROM id_" + str(entity_id) + " ORDER BY rec_id DESC LIMIT " + str(rows_count) + ";")
+        lst = self.cur.fetchall()
+        if len(lst) != 0:
+            result = []
+            for i in lst:
+                result.append(self.list_to_dict(i))  # create list of dict if I request more than one row
+            return result
         else:
             return None
 
@@ -133,23 +162,23 @@ class dbinstruments:
             'title': list[3],
             'min_cost': list[4],
             'count': list[5],
-            'item)id': list[6],
+            'item_id': list[6],
             'kind': list[7],
             'class': list[8],
-            'datetime': list[9],
+            'datetime': list[9]
             }
 
     def create_new_table(self, entity_id):
         self.cur.execute("CREATE TABLE IF NOT EXISTS id_" + str(entity_id) + " (rec_id integer PRIMARY KEY, "
-                                                                                  "type text, "
-                                                                                  "entity_id text, "
-                                                                                  "title text, "
-                                                                                  "min_cost text, "
-                                                                                  "count text, "
-                                                                                  "item_id text, "
-                                                                                  "kind text, "
-                                                                                  "class text, "
-                                                                                  "datetime text);")
+                                                                          "type text, "
+                                                                          "entity_id text, "
+                                                                          "title text, "
+                                                                          "min_cost int, "
+                                                                          "count int, "
+                                                                          "item_id text, "
+                                                                          "kind text, "
+                                                                          "class text, "
+                                                                          "datetime text);")
 
     def write_data(self, json_data):
         i = json_data
@@ -159,27 +188,32 @@ class dbinstruments:
                                                                 i['min_cost'], i['count'], i['item_id'], i['kind'],
                                                                 i['class'], i['datetime']])
 
-    def fill_database(self, data):
-        self.connect()
-        for i in data:
+    def fill_database(self, input_data):  # out of there this function. That is analise module function
+        # self.connect()
+        for dct in input_data:
             # create new table if not exist
-            self.create_new_table(i['entity_id'])
+            self.create_new_table(dct['entity_id'])
             # read table. Better read last record. Potential slowest place in code
-            last_row = self.read_last_record(i['entity_id'])
+            last_row = self.get_last_records(dct['entity_id'])
             # print(db_row[4], ' ', db_row[5])
             if last_row is None:
-            # true means that table is empty = > wright all data
-                self.write_data(i)
-            elif int(last_row['min_cost']) != i['min_cost'] or int(last_row['count']) != i['count']:
-            # if table is not empty - add new record only when change price or count of items
-                self.write_data(i)
-        self.disconnect()
-
-    def read_table(self):
-        pass
+                # true means that table is empty => add new record
+                self.write_data(dct)
+            elif last_row[0]['min_cost'] != dct['min_cost'] or last_row[0]['count'] != dct['count']:
+                # last_row[0]['min_cost']. row[0] needs bk get_last_records return list of dicts
+                # if table is not empty - add new record only if price or count of items changes
+                self.write_data(dct)
+        # self.disconnect()
 
 
 if __name__ == '__main__':
     db = dbinstruments()
     data = Extractor()
     db.fill_database(data.getjson())
+    lst = db.get_tables_id_list()
+    for i in lst:
+        print(i)
+        rows = db.get_table_data(i)
+        for row in rows:
+            print(row)
+
