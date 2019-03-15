@@ -150,7 +150,7 @@ class SQLInstruments:
                 result.append(self.list_to_dict(i))  # create list of dict if I request more than one row
             return result
         else:
-            return None
+            return []
 
     def list_to_dict(self, list):
         """This function convert data which reading from database like list to dictionary"""
@@ -187,7 +187,7 @@ class SQLInstruments:
                                                                 i['class'], i['datetime']])
 
 
-class DatabaseCore:
+class DataCore:
 
     def fill_db(self, del_sec):
         while True:
@@ -197,22 +197,24 @@ class DatabaseCore:
             for dct in input_data:
                 # create new table if not exist
                 sql.create_new_table(dct['entity_id'])
-                # read table. Better read last record. Potential slowest place in code
-                last_row = sql.get_last_records(dct['entity_id'])[0]
+                # read last record in table
+                last_row = sql.get_last_records(dct['entity_id'])
                 if last_row is None:
                     # true means that table is empty => add new record
                     sql.write_data(dct)
-                elif last_row['min_cost'] != dct['min_cost'] or last_row['count'] != dct['count']:
+                elif last_row[0]['min_cost'] != dct['min_cost'] or last_row[0]['count'] != dct['count']:
                     # last_row[0]['min_cost']. row[0] needs bk get_last_records return list of dicts
                     # if table is not empty - add new record only if price or count of items changes
                     sql.write_data(dct)
-                    if last_row['min_cost'] > dct['min_cost']*2:
+                    if last_row[0]['min_cost'] > dct['min_cost']*2:
                         print("BINGO!!!")
-                    print('ttl: ' + last_row['title'] + '; cst:' + str(last_row['min_cost']) + '; cnt:' +
-                          str(last_row['count']) + ' date: ' + last_row['datetime'])
+                    print('ttl: ' + last_row[0]['title'] + '; cst:' + str(last_row[0]['min_cost']) + '; cnt:' +
+                          str(last_row[0]['count']) + ' date: ' + last_row[0]['datetime'])
                     print('ttl: ' + dct['title'] + '; cst:' + str(dct['min_cost']) + '; cnt:' +
                           str(dct['count']) + ' date: ' + dct['datetime'])
+                    print('')
             # break
+        print('111')
         time.sleep(del_sec)
 
     def run_core(self):
@@ -225,6 +227,6 @@ class DataCompare:
 
 
 if __name__ == '__main__':
-    core = DatabaseCore()
+    core = DataCore()
     core.run_core()
     print('123')
