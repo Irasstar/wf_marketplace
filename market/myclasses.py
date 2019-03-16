@@ -96,8 +96,16 @@ class Extractor(LoginSystem):
             session.close()
             return data
         #  need to add 'status' check !!!
-        tmpdate = add_datetime(get_data().json())
-        return tmpdate['data']
+        code = get_data()
+        if code.status_code == 200:
+            tmpdate = add_datetime(code.json())
+            # additional check
+            # if type(tmpdate) is dict:
+            #     if 'data' in tmpdate:
+            return tmpdate['data']
+        else:
+            print('Login or connection error')
+            return None
 
 
 class SQLInstruments:
@@ -194,6 +202,9 @@ class DataCore:
             sql = SQLInstruments()
             ext = Extractor()
             input_data = ext.getjson()
+            # none in input_data returns when function didnt get json file
+            if input_data is None:
+                break
             for dct in input_data:
                 # create new table if not exist
                 sql.create_new_table(dct['entity_id'])
@@ -214,7 +225,6 @@ class DataCore:
                           str(dct['count']) + ' date: ' + dct['datetime'])
                     print('')
             # break
-        print('111')
         time.sleep(del_sec)
 
     def run_core(self):
@@ -229,4 +239,4 @@ class DataCompare:
 if __name__ == '__main__':
     core = DataCore()
     core.run_core()
-    print('123')
+    print('Execution aborted')
