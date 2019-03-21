@@ -2,100 +2,77 @@ import requests
 import datetime
 import sqlite3
 import time
-import threading
 
 
 class LoginSystem:
-    """this class return dictionary with cookies. This class calls in extractor and buy modules"""
-    # def login(self):
-    #     session = requests.session()
-    #     data = {'email': 'valendaanatoli@gmail.com',
-    #             'password': '',
-    #             'continue': 'https://account.my.com/login_continue/?with_fb=1&with_tw=1&lang=en_'
-    #             'US&client_id=wf.my.com&'
-    #                         'continue=https%3A%2F%2Fwf.my.com%2Fen%2F',
-    #                         'failure': 'https://account.my.com/login/?with_fb=1&with_tw=1&lang=en_US&client_id='
-    #                                    'wf.my.com&continue=https%3A%2F%2Fwf.my.com%2Fen%2F',
-    #             'nosavelogin': 0
-    #     }
-    #     headers = {'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-    #                'Accept-Encoding': 'gzip, deflate, br',
-    #                'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
-    #                'Cache-Control': 'max-age=0',
-    #                'Connection': 'keep-alive',
-    #                'Content-Length': '414',
-    #                'Content-Type': 'application/x-www-form-urlencoded',
-    #                'Cookie': 'amc_lang=en_US; p=AQAAAHsnBAAA; _ym_uid=1549468471640890375; _ym_d=1549468471; _'
-    #                          'fbp=fb.1.1549468471746.939243932; _gcl_au=1.1.440179849.1549520189; _ga='
-    #                          'GA1.2.774220765.1550310268; s=dpr=0.800000011920929; ssdc='
-    #                          '7750dd29443a4ac3ba0ab6ced7af5042; mrcu=1E445C74D99939689CE86EA47CB2; '
-    #                          '_ym_visorc_42397399=w; mr1lad=5c7baa49aada345-0-0-; t_0=1; _ym_isad=2',
-    #                'DNT': '1',
-    #                'Host': 'auth-ac.my.com',
-    #                'Origin': 'https://wf.my.com',
-    #                'Referer': 'https://wf.my.com/en/',
-    #                'Upgrade-Insecure-Requests': '1',
-    #                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-    #                              'Chrome/72.0.3626.119 Safari/537.36'
-    #     }
-    #     r = session.post('https://auth-ac.my.com/auth', json=data, headers=headers)
-    #     session.close()
-    #     return r
-    #
-    # def urllogin(self):
-    #     url = 'http://www.someserver.com/auth/login'
-    #     values = {'email-email': 'john@example.com',
-    #               'password-clear': 'Combination',
-    #               'password-password': 'mypassword'}
-    #
-    #     data = urllib.urlencode(values)
-    #     cookies = cookielib.CookieJar()
-    #
-    #     opener = urllib2.build_opener(
-    #         urllib2.HTTPRedirectHandler(),
-    #         urllib2.HTTPHandler(debuglevel=0),
-    #         urllib2.HTTPSHandler(debuglevel=0),
-    #         urllib2.HTTPCookieProcessor(cookies))
-    #
-    #     response = opener.open(url, data)
-    #     the_page = response.read()
-    #     http_headers = response.info()
 
-    def get_headers(self):
-        """"""
-        # You can get it after login on wf.my.com, than enter https://wf.my.com/minigames/marketplace/api/all
-        #  into web browser, press f12 and search ms, sdcs cookies
-        mc = 'cfca4eff86d27621a5a8e2b054b40b6618db413234383632'
-        sdcs = 'WUd6IVibK5GPrq3f'
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows  NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)'
-                          ' Chrome/66.0.3359.181 Safari/537.36',  # not critical, but better stay here
-            'Cookie': 'mc=' + mc + '; ' + 'sdcs=' + sdcs + ';'  # account identificator
+    def get_login_cookies(self):
+        """This function return cookies you need to login"""
+        start_cookies = {
+            "ssdc": "cee1a4d23db54820829ccc313f4ef28f",  # any random number with 32 symbols
+            "_fbp": "fb.1.1553162178200.1427585602"
         }
-        return headers
+
+        headers = {
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+            "Cache-Control": "max-age=0",
+            "Connection": "keep-alive",
+            "Content-Length": "414",
+            "Content-Type": "application/x-www-form-urlencoded",
+            "DNT": "1",
+            # "Host": "auth-ac.my.com",
+            "Origin": "https://wf.my.com",
+            "Referer": "https://wf.my.com/en/",  # didn't work without referer
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                          "Chrome/66.0.3359.181 Safari/537.36",  # not critical, but better stay here
+        }
+        form_data = "email=valendaanatoli%40gmail.com&password=star4309&continue=https%3A%2F%2Faccount.my.com%2F" \
+                    "login_continue%2F%3Fwith_fb%3D1%26with_tw%3D1%26lang%3Den_US%26client_id%3Dwf.my.com%26" \
+                    "continue%3Dhttps%253A%252F%252Fwf.my.com%252Fen%252F&failure=https%3A%2F%2Faccount.my.com%2F" \
+                    "login%2F%3Fwith_fb%3D1%26with_tw%3D1%26lang%3Den_US%26client_id%3Dwf.my.com%26continue%3D" \
+                    "https%253A%252F%252Fwf.my.com%252Fen%252F&nosavelogin=0"
+        session = requests.session()
+        # add start cookies to session
+        requests.utils.add_dict_to_cookiejar(session.cookies, start_cookies)
+        session.post(url="https://auth-ac.my.com/auth", data=form_data, headers=headers)
+        session.get("https://auth-ac.my.com/sdc?JSONP_call=jQuery1112002970201915748616_1553162182027&"
+                    "from=https%3A%2F%2Fwf.my.com%2Fen%2F&_=1553162182028")
+        session.close()
+        return session.cookies
 
 
-class Extractor(LoginSystem):
+class Extractor:
     """this class extract data from wf.my.com"""
-    # I will need to create container for data transfer. structure {datastatus: '', data: datadict}
 
-    def getjson(self):
-        def add_datetime(dict):
+    def __init__(self):
+        self.login_cookies = None
+        self.init_new_cookies()  # init login_cookies
+
+    def init_new_cookies(self):
+        login = LoginSystem()
+        self.login_cookies = login.get_login_cookies()
+
+    def get_json(self):
+        def add_datetime(json_data):
             """add time parameter to data dict in json file"""
-            tmpdate = datetime.datetime.now()
-            for i in dict['data']:
-                i['datetime'] = str(tmpdate)
-            return dict
+            tmp_date = datetime.datetime.now()
+            for i in json_data['data']:
+                i['datetime'] = str(tmp_date)
+            return json_data
 
         def get_data(url='https://wf.my.com/minigames/marketplace/api/all'):  # data file url
             """get data in json format from site wf.my.com"""
-            session = requests.session()
+            sess = requests.session()
             # url for getting json file with data
-            browser_headers = self.get_headers()
-            data = session.get(url, headers=browser_headers)  # get data from site
-            session.close()
-            return data
-        #  need to add 'status' check !!!
+            sess = requests.session()
+            sess.cookies = self.login_cookies
+            response = sess.get("https://wf.my.com/minigames/marketplace/api/all") # get data from site
+            sess.close()
+            return response
+        #  code is variable you need to check status code. .status_code == 200 mean that json data receive correctly
         code = get_data()
         if code.status_code == 200:
             tmpdate = add_datetime(code.json())
@@ -105,6 +82,8 @@ class Extractor(LoginSystem):
             return tmpdate['data']
         else:
             print('Login or connection error')
+            print('Try to relogin')
+            self.init_new_cookies()
             return None
 
 
@@ -158,7 +137,7 @@ class SQLInstruments:
                 result.append(self.list_to_dict(i))  # create list of dict if I request more than one row
             return result
         else:
-            return []
+            return None
 
     def list_to_dict(self, list):
         """This function convert data which reading from database like list to dictionary"""
@@ -193,15 +172,16 @@ class SQLInstruments:
                          "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", [i['type'], i['entity_id'], i['title'],
                                                                 i['min_cost'], i['count'], i['item_id'], i['kind'],
                                                                 i['class'], i['datetime']])
+        self.conn.commit()
 
 
-class DataCore:
+class MarketCore:
 
     def fill_db(self, del_sec):
+        sql = SQLInstruments()
+        ext = Extractor()
         while True:
-            sql = SQLInstruments()
-            ext = Extractor()
-            input_data = ext.getjson()
+            input_data = ext.get_json()
             # none in input_data returns when function didnt get json file
             if input_data is None:
                 break
@@ -209,7 +189,7 @@ class DataCore:
                 # create new table if not exist
                 sql.create_new_table(dct['entity_id'])
                 # read last record in table
-                last_row = sql.get_last_records(dct['entity_id'])
+                last_row = sql.get_last_records(dct['entity_id'], 1)
                 if last_row is None:
                     # true means that table is empty => add new record
                     sql.write_data(dct)
@@ -232,11 +212,42 @@ class DataCore:
         self.fill_db(5)
 
 
-class DataCompare:
-    pass
+class DataCompare(LoginSystem):
+
+    def __init__(self):
+        pass
+
+    def __del__(self):
+        pass
+
+    def buy_item(self, entity_id, cost, type):
+        """example of input parameters: (2991, 40, inventory)"""
+        url = 'https://wf.my.com/minigames/marketplace/api/buy'
+        session = requests.session()
+        # url for getting json file with data
+        browser_headers = self.get_headers()
+        browser_headers.update({'Host': 'wf.my.com'})
+        browser_headers.update({'Origin': "https://wf.my.com"})
+        browser_headers.update({'Referer': "https://wf.my.com/minigames/bpservices"})
+        payload = {'entity_id': entity_id,
+                   'cost': cost,
+                   'type': type
+                   }
+        data = session.post(url,headers=browser_headers, data=payload)
+        session.close()
+        print(data)
+
+    def load_config(self):
+        pass
+
+    def save_config(self):
+        pass
+
+    def if_buy(self, new_dict, sql_dict):
+        """return True if price is good"""
+        pass
 
 
 if __name__ == '__main__':
-    core = DataCore()
+    core = MarketCore()
     core.run_core()
-    print('Execution aborted')
