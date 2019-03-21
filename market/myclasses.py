@@ -172,7 +172,6 @@ class SQLInstruments:
                          "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", [i['type'], i['entity_id'], i['title'],
                                                                 i['min_cost'], i['count'], i['item_id'], i['kind'],
                                                                 i['class'], i['datetime']])
-        self.conn.commit()
 
 
 class MarketCore:
@@ -204,6 +203,7 @@ class MarketCore:
                     print('ttl: ' + dct['title'] + '; cst:' + str(dct['min_cost']) + '; cnt:' +
                           str(dct['count']) + ' date: ' + dct['datetime'])
                     print('')
+            sql.commit()
             # break
         time.sleep(del_sec)
 
