@@ -2,17 +2,35 @@ import requests
 import datetime
 import sqlite3
 import time
-
+import json
 
 class LoginSystem:
 
-    def get_login_cookies(self):
-        """This function return cookies you need to login"""
+    def renew_cookies(self):
+        """function create or rewrite new cookies to json file"""
+        # transform cookie jar to dictionary
+        cookie_dict = requests.utils.dict_from_cookiejar(self.get_login_cookies())
+        js = json.dumps(cookie_dict)
+        f = open(r"config\cookies.json", "w")
+        f.write(js)
+        f.close()
+
+    @staticmethod
+    def load_cookies():
+        """function load cookie dict from file"""
+        f = open(r"config\cookies.json", "r")
+        cookie_dict = json.load(f)
+        f.close()
+        return cookie_dict
+
+    @staticmethod
+    def get_login_cookies():
+        """function send two request to auth-ac.my.com/auth domain for getting cookies you need to login wf.my.com and
+        return that cookies"""
         start_cookies = {
             "ssdc": "cee1a4d23db54820829ccc313f4ef28f",  # any random number with 32 symbols
             "_fbp": "fb.1.1553162178200.1427585602"
         }
-
         headers = {
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
             "Accept-Encoding": "gzip, deflate, br",
@@ -27,7 +45,7 @@ class LoginSystem:
             "Referer": "https://wf.my.com/en/",  # didn't work without referer
             "Upgrade-Insecure-Requests": "1",
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                          "Chrome/66.0.3359.181 Safari/537.36",  # not critical, but better stay here
+                          "Chrome/66.0.3359.181 Safari/537.36"  # not critical, but better stay here
         }
         form_data = "email=valendaanatoli%40gmail.com&password=star4309&continue=https%3A%2F%2Faccount.my.com%2F" \
                     "login_continue%2F%3Fwith_fb%3D1%26with_tw%3D1%26lang%3Den_US%26client_id%3Dwf.my.com%26" \
@@ -48,12 +66,9 @@ class Extractor:
     """this class extract data from wf.my.com"""
 
     def __init__(self):
-        self.login_cookies = None
-        self.init_new_cookies()  # init login_cookies
-
-    def init_new_cookies(self):
         login = LoginSystem()
-        self.login_cookies = login.get_login_cookies()
+        login.renew_cookies()
+        self.dict_cookies = login.load_cookies()
 
     def get_json(self):
         def add_datetime(json_data):
@@ -65,25 +80,21 @@ class Extractor:
 
         def get_data(url='https://wf.my.com/minigames/marketplace/api/all'):  # data file url
             """get data in json format from site wf.my.com"""
-            sess = requests.session()
-            # url for getting json file with data
-            sess = requests.session()
-            sess.cookies = self.login_cookies
-            response = sess.get("https://wf.my.com/minigames/marketplace/api/all") # get data from site
-            sess.close()
+            session = requests.session()
+            requests.utils.add_dict_to_cookiejar(session.cookies, self.dict_cookies)
+            response = session.get(url=url)  # get data from site
+            session.close()
             return response
         #  code is variable you need to check status code. .status_code == 200 mean that json data receive correctly
         code = get_data()
         if code.status_code == 200:
-            tmpdate = add_datetime(code.json())
-            # additional check
-            # if type(tmpdate) is dict:
-            #     if 'data' in tmpdate:
-            return tmpdate['data']
+            tmp_date = add_datetime(code.json())
+            return tmp_date['data']
+        elif code.status_code == 401:
+            print('Login error')
+            return None
         else:
-            print('Login or connection error')
-            print('Try to relogin')
-            self.init_new_cookies()
+            print('Connection error')
             return None
 
 
@@ -155,15 +166,15 @@ class SQLInstruments:
 
     def create_new_table(self, entity_id):
         self.cur.execute("CREATE TABLE IF NOT EXISTS id_" + str(entity_id) + " (rec_id integer PRIMARY KEY, "
-                                                                          "type text, "
-                                                                          "entity_id text, "
-                                                                          "title text, "
-                                                                          "min_cost int, "
-                                                                          "count int, "
-                                                                          "item_id text, "
-                                                                          "kind text, "
-                                                                          "class text, "
-                                                                          "datetime text);")
+                                                                             "type text, "
+                                                                             "entity_id text, "
+                                                                             "title text, "
+                                                                             "min_cost int, "
+                                                                             "count int, "
+                                                                             "item_id text, "
+                                                                             "kind text, "
+                                                                             "class text, "
+                                                                             "datetime text);")
 
     def write_data(self, json_data):
         i = json_data
@@ -212,7 +223,7 @@ class MarketCore:
         self.fill_db(5)
 
 
-class DataCompare(LoginSystem):
+class DataCompare:
 
     def __init__(self):
         pass
@@ -223,17 +234,14 @@ class DataCompare(LoginSystem):
     def buy_item(self, entity_id, cost, type):
         """example of input parameters: (2991, 40, inventory)"""
         url = 'https://wf.my.com/minigames/marketplace/api/buy'
+        login = LoginSystem()
+        dict_cookies = login.load_cookies()
         session = requests.session()
         # url for getting json file with data
-        browser_headers = self.get_headers()
-        browser_headers.update({'Host': 'wf.my.com'})
-        browser_headers.update({'Origin': "https://wf.my.com"})
-        browser_headers.update({'Referer': "https://wf.my.com/minigames/bpservices"})
-        payload = {'entity_id': entity_id,
-                   'cost': cost,
-                   'type': type
-                   }
-        data = session.post(url,headers=browser_headers, data=payload)
+        requests.utils.add_dict_to_cookiejar(session.cookies, dict_cookies)
+        session.headers.update({'Origin': "https://wf.my.com", 'Referer': "https://wf.my.com/minigames/bpservices"})
+        payload = 'entity_id=' + entity_id + '&cost=' + cost + '&type=' + type
+        data = session.post(url, data=payload)
         session.close()
         print(data)
 
@@ -249,5 +257,32 @@ class DataCompare(LoginSystem):
 
 
 if __name__ == '__main__':
-    core = MarketCore()
-    core.run_core()
+    sess = requests.session()
+    login = LoginSystem()
+    login.renew_cookies()
+    start_cookies = login.load_cookies()
+    buy_pay_load = "entity_id=11&cost=40&type=chest"
+    url = "https://wf.my.com/minigames/marketplace/api/buy"
+    headers = {
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+        "Connection": "keep-alive",
+        "Content-Length": "37",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "DNT": "1",
+        "Origin": "https://wf.my.com",
+        "Referer": "https://wf.my.com/minigames/bpservices",  # didn't work without referer
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                      "Chrome/71.0.3578.98 Safari/537.36"  # not critical, but better stay here
+    }
+    requests.utils.add_dict_to_cookiejar(sess.cookies, start_cookies)
+    resp = sess.get("https://wf.my.com/minigames/bpservices")
+    resp = sess.get("https://wf.my.com/minigames/user/info")
+    mg_token = resp.json()['data']['token']
+    requests.utils.add_dict_to_cookiejar(sess.cookies, {'mg_token': mg_token})
+    resp = sess.post(url, data=buy_pay_load, headers=headers)
+
+    sess.close()
+
