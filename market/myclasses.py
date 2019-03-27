@@ -230,7 +230,7 @@ class MarketCore:
 
     def fill_db(self, del_sec):
         sql = SQLInstruments()
-        ext = Extractor()
+        ext = WebSystem()
         while True:
             input_data = ext.get_json()
             # none in input_data returns when function didnt get json file
@@ -272,32 +272,17 @@ class DataCompare:
     def __del__(self):
         pass
 
-    def buy_item(self, entity_id, cost, type):
-        """example of input parameters: (2991, 40, inventory)"""
-        url = 'https://wf.my.com/minigames/marketplace/api/buy'
-        login = LoginSystem()
-        dict_cookies = login.load_cookies()
-        session = requests.session()
-        # url for getting json file with data
-        requests.utils.add_dict_to_cookiejar(session.cookies, dict_cookies)
-        session.headers.update({'Origin': "https://wf.my.com", 'Referer': "https://wf.my.com/minigames/bpservices"})
-        payload = 'entity_id=' + entity_id + '&cost=' + cost + '&type=' + type
-        data = session.post(url, data=payload)
-        session.close()
-        print(data)
-
     def load_config(self):
         pass
 
     def save_config(self):
         pass
 
-    def if_buy(self, new_dict, sql_dict):
+    def if_buy(self, web_dict, sql_dict):
         """return True if price is good"""
         pass
 
 
 if __name__ == '__main__':
-    test = WebSystem()
-    test_req = test.buy_item(11, 40, 'chest')
-
+    core = MarketCore()
+    core.run_core()
