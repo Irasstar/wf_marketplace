@@ -4,12 +4,87 @@ import sqlite3
 import time
 import json
 
-class LoginSystem:
+
+class WebSystem:
+
+    def __init__(self):
+        self.current_login_cookies = []
+        self.renew_cookies()
+
+    def get_json(self):
+        def add_datetime(json_data):
+            """add time parameter to data dict in json file"""
+            tmp_datetime = datetime.datetime.now()
+            for i in json_data['data']:
+                i['datetime'] = str(tmp_datetime)
+            return json_data
+
+        def get_data(url='https://wf.my.com/minigames/marketplace/api/all'):  # data file url
+            """get data in json format from site wf.my.com"""
+            session = requests.session()
+            session.cookies = self.current_login_cookies
+            response = session.get(url=url)  # get data from site
+            if response.status_code is not 200:
+                self.renew_cookies()
+                requests.utils.add_dict_to_cookiejar(session.cookies, self.load_cookies())
+                response = session.get(url=url)
+            session.close()
+            return response
+        #  The code is a variable you need to check status code.
+        #  .status_code == 200 mean that json data receive correctly
+        code = get_data()
+        if code.status_code == 200:
+            tmp_date = add_datetime(code.json())
+            return tmp_date['data']
+        elif code.status_code == 401:
+            print('Login error')
+            return None
+        else:
+            print('Connection error')
+            return None
+
+    def buy_item(self, entity_id, cost, item_type):
+        sess = requests.session()
+        # FIX IT !!!!
+        buy_payload = "".join(["entity_id=", str(entity_id), "&cost=", str(cost), "&type=", str(item_type)])
+        url = "https://wf.my.com/minigames/marketplace/api/buy"
+        headers = {
+            "Accept": "application/json, text/plain, */*",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
+            "Connection": "keep-alive",
+            "Content-Length": "37",
+            "Content-Type": "application/x-www-form-urlencoded",
+            "DNT": "1",
+            "Origin": "https://wf.my.com",
+            "Referer": "https://wf.my.com/minigames/bpservices",  # didn't work without referer
+            "Upgrade-Insecure-Requests": "1",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
+                          "Chrome/71.0.3578.98 Safari/537.36"  # not critical, but better stay here
+        }
+        sess.cookies = self.current_login_cookies
+        resp = sess.get("https://wf.my.com/minigames/user/info")
+        if resp.status_code is not 200:
+            self.renew_cookies()
+            sess.cookies = self.current_login_cookies
+            resp = sess.get("https://wf.my.com/minigames/user/info")
+            if resp.status_code is not 200:
+                return resp
+        mg_token = resp.json()['data']['token']
+        resp = sess.get("https://wf.my.com/minigames/bpservices")
+        requests.utils.add_dict_to_cookiejar(sess.cookies, {'mg_token': mg_token})
+        # resp = sess.post(url, data=buy_payload, headers=headers)
+        sess.close()
+        return resp
 
     def renew_cookies(self):
-        """function create or rewrite new cookies to json file"""
-        # transform cookie jar to dictionary
-        cookie_dict = requests.utils.dict_from_cookiejar(self.get_login_cookies())
+        """These function:
+         1) get new login cookies from wf.my.com
+         2) write(or renew) new cookies to internal class variable current_login_cookies
+         3) transform cookiejar to dict and write to file
+         """
+        self.current_login_cookies = self.get_login_cookies()
+        cookie_dict = requests.utils.dict_from_cookiejar(self.current_login_cookies)
         js = json.dumps(cookie_dict)
         f = open(r"config\cookies.json", "w")
         f.write(js)
@@ -17,11 +92,13 @@ class LoginSystem:
 
     @staticmethod
     def load_cookies():
-        """function load cookie dict from file"""
+        """function load cookie dict from file, convert it to cookiejar and return"""
         f = open(r"config\cookies.json", "r")
-        cookie_dict = json.load(f)
+        cookie_jar = {}
+        requests.utils.add_dict_to_cookiejar(cookie_jar, json.load(f))
         f.close()
-        return cookie_dict
+
+        return cookie_jar
 
     @staticmethod
     def get_login_cookies():
@@ -60,42 +137,6 @@ class LoginSystem:
                     "from=https%3A%2F%2Fwf.my.com%2Fen%2F&_=1553162182028")
         session.close()
         return session.cookies
-
-
-class Extractor:
-    """this class extract data from wf.my.com"""
-
-    def __init__(self):
-        login = LoginSystem()
-        login.renew_cookies()
-        self.dict_cookies = login.load_cookies()
-
-    def get_json(self):
-        def add_datetime(json_data):
-            """add time parameter to data dict in json file"""
-            tmp_date = datetime.datetime.now()
-            for i in json_data['data']:
-                i['datetime'] = str(tmp_date)
-            return json_data
-
-        def get_data(url='https://wf.my.com/minigames/marketplace/api/all'):  # data file url
-            """get data in json format from site wf.my.com"""
-            session = requests.session()
-            requests.utils.add_dict_to_cookiejar(session.cookies, self.dict_cookies)
-            response = session.get(url=url)  # get data from site
-            session.close()
-            return response
-        #  code is variable you need to check status code. .status_code == 200 mean that json data receive correctly
-        code = get_data()
-        if code.status_code == 200:
-            tmp_date = add_datetime(code.json())
-            return tmp_date['data']
-        elif code.status_code == 401:
-            print('Login error')
-            return None
-        else:
-            print('Connection error')
-            return None
 
 
 class SQLInstruments:
@@ -257,32 +298,6 @@ class DataCompare:
 
 
 if __name__ == '__main__':
-    sess = requests.session()
-    login = LoginSystem()
-    login.renew_cookies()
-    start_cookies = login.load_cookies()
-    buy_pay_load = "entity_id=11&cost=40&type=chest"
-    url = "https://wf.my.com/minigames/marketplace/api/buy"
-    headers = {
-        "Accept": "application/json, text/plain, */*",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Accept-Language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
-        "Connection": "keep-alive",
-        "Content-Length": "37",
-        "Content-Type": "application/x-www-form-urlencoded",
-        "DNT": "1",
-        "Origin": "https://wf.my.com",
-        "Referer": "https://wf.my.com/minigames/bpservices",  # didn't work without referer
-        "Upgrade-Insecure-Requests": "1",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/71.0.3578.98 Safari/537.36"  # not critical, but better stay here
-    }
-    requests.utils.add_dict_to_cookiejar(sess.cookies, start_cookies)
-    resp = sess.get("https://wf.my.com/minigames/bpservices")
-    resp = sess.get("https://wf.my.com/minigames/user/info")
-    mg_token = resp.json()['data']['token']
-    requests.utils.add_dict_to_cookiejar(sess.cookies, {'mg_token': mg_token})
-    resp = sess.post(url, data=buy_pay_load, headers=headers)
-
-    sess.close()
+    test = WebSystem()
+    test_req = test.buy_item(11, 40, 'chest')
 
