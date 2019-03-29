@@ -71,9 +71,9 @@ class WebSystem:
             if resp.status_code is not 200:
                 return resp
         mg_token = resp.json()['data']['token']
-        resp = sess.get("https://wf.my.com/minigames/bpservices")
+        sess.get("https://wf.my.com/minigames/bpservices")
         requests.utils.add_dict_to_cookiejar(sess.cookies, {'mg_token': mg_token})
-        # resp = sess.post(url, data=buy_payload, headers=headers)
+        resp = sess.post(url, data=buy_payload, headers=headers)
         sess.close()
         return resp
 
@@ -141,16 +141,16 @@ class WebSystem:
 
 class SQLInstruments:
     """first of all, i need to change sqlite to mongo database for saving data in json format"""
-    def __init__(self, dbfile=r'data\mpdatabase.db'):
-        self.logfile = r'log\log.txt'
-        self.connect(dbfile)
+    def __init__(self, db_file=r'data\mpdatabase.db'):
+        self.logfile = r'log\db_log.txt'
+        self.connect(db_file)
 
     def __del__(self):
         self.conn.commit()
         self.conn.close()
 
-    def connect(self, dbfile):
-        self.conn = sqlite3.connect(dbfile)
+    def connect(self, db_file):
+        self.conn = sqlite3.connect(db_file)
         self.cur = self.conn.cursor()
 
     def disconnect(self):
@@ -191,18 +191,19 @@ class SQLInstruments:
         else:
             return None
 
-    def list_to_dict(self, list):
+    @staticmethod
+    def list_to_dict(loaded_list):
         """This function convert data which reading from database like list to dictionary"""
         return {
-            'type': list[1],
-            'entity_id': list[2],
-            'title': list[3],
-            'min_cost': list[4],
-            'count': list[5],
-            'item_id': list[6],
-            'kind': list[7],
-            'class': list[8],
-            'datetime': list[9]
+            'type': loaded_list[1],
+            'entity_id': loaded_list[2],
+            'title': loaded_list[3],
+            'min_cost': loaded_list[4],
+            'count': loaded_list[5],
+            'item_id': loaded_list[6],
+            'kind': loaded_list[7],
+            'class': loaded_list[8],
+            'datetime': loaded_list[9]
             }
 
     def create_new_table(self, entity_id):
@@ -225,15 +226,23 @@ class SQLInstruments:
                                                                 i['min_cost'], i['count'], i['item_id'], i['kind'],
                                                                 i['class'], i['datetime']])
 
+    def get_all_last_records(self):
+        """data = {'item_id': {data of item with this id}}"""
+        items_id = self.get_tables_id_list()
+        data = {}
+        for i in items_id:
+            data.update({i: self.get_last_records(i)[0]})
+        return data
 
 class MarketCore:
 
-    def fill_db(self, del_sec):
+    @staticmethod
+    def fill_db(del_sec=5):
         sql = SQLInstruments()
         ext = WebSystem()
         while True:
             input_data = ext.get_json()
-            # none in input_data returns when function didnt get json file
+            # none in input_data returns when function didn't get json file
             if input_data is None:
                 break
             for dct in input_data:
@@ -272,11 +281,23 @@ class DataCompare:
     def __del__(self):
         pass
 
-    def load_config(self):
-        pass
+    @staticmethod
+    def load_buy_item_base():
+        """function load cookie dict from file, convert it to cookiejar and return"""
+        f = open(r"config\item_base.json", "r")
+        cookie_jar = json.load(f)
+        f.close()
 
-    def save_config(self):
-        pass
+    def create_new_item_base(self):
+        sql = SQLInstruments()
+        data = sql.get_all_last_records()
+        js = json.dumps(data)
+        f = open(r"config\items_base.json", "w")
+        for i in :
+            print(i)
+            # json.dumps(data)
+            # f.write(f)
+        f.close()
 
     def if_buy(self, web_dict, sql_dict):
         """return True if price is good"""
@@ -284,5 +305,8 @@ class DataCompare:
 
 
 if __name__ == '__main__':
-    core = MarketCore()
-    core.run_core()
+    # core = MarketCore()
+    # core.run_core()
+    d = DataCompare()
+    d.create_new_item_base()
+
