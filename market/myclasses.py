@@ -45,7 +45,6 @@ class WebSystem:
 
     def buy_item(self, entity_id, cost, item_type):
         sess = requests.session()
-        # FIX IT !!!!
         buy_payload = "".join(["entity_id=", str(entity_id), "&cost=", str(cost), "&type=", str(item_type)])
         url = "https://wf.my.com/minigames/marketplace/api/buy"
         headers = {
@@ -80,8 +79,8 @@ class WebSystem:
     def renew_cookies(self):
         """These function:
          1) get new login cookies from wf.my.com
-         2) write(or renew) new cookies to internal class variable current_login_cookies
-         3) transform cookiejar to dict and write to file
+         2) write(or renew) new cookies to the internal variable current_login_cookies
+         3) transform cookiejar to a dict and write to a file
          """
         self.current_login_cookies = self.get_login_cookies()
         cookie_dict = requests.utils.dict_from_cookiejar(self.current_login_cookies)
@@ -226,6 +225,24 @@ class SQLInstruments:
                                                                 i['min_cost'], i['count'], i['item_id'], i['kind'],
                                                                 i['class'], i['datetime']])
 
+    def get_most_tradable_items(self):
+        """returns {count of records: ***, item: {item data}}"""
+        tables_list = self.get_tables_id_list()
+        trade_list = {}
+        for table in tables_list:
+            count = self.cur.execute("SELECT COUNT(*) FROM id_" + str(table)).fetchone()
+            trade_list.update({table: count[0]})
+        tpl = sorted(trade_list.items(), key=lambda t: t[1], reverse=True)
+        items_list = self.get_all_last_records()
+        new_list = []
+        for key in tpl:
+            new_list.append({'records': key[1], 'item': items_list[key[0]]})
+        f = open(r'logs\tradable_items_data.txt', 'w')
+        for i in new_list:
+            f.write(str(i) + "\n")
+        f.close()
+        return new_list
+
     def get_all_last_records(self):
         """data = {'item_id': {data of item with this id}}"""
         items_id = self.get_tables_id_list()
@@ -234,15 +251,17 @@ class SQLInstruments:
             data.update({i: self.get_last_records(i)[0]})
         return data
 
+
 class MarketCore:
 
     @staticmethod
     def fill_db(del_sec=5):
         sql = SQLInstruments()
         ext = WebSystem()
+        buy = DataCompare()
         while True:
             input_data = ext.get_json()
-            # none in input_data returns when function didn't get json file
+            # input_data return None when function doesn't get json file
             if input_data is None:
                 break
             for dct in input_data:
@@ -257,6 +276,9 @@ class MarketCore:
                     # last_row[0]['min_cost']. row[0] needs bk get_last_records return list of dicts
                     # if table is not empty - add new record only if price or count of items changes
                     sql.write_data(dct)
+                    if buy.if_buy(dct):
+                        ext.buy_item(dct["entity_id", dct["min_cost"], dct["type"]])
+                        print("i buy it")
                     if last_row[0]['min_cost'] > dct['min_cost']*2:
                         print("BINGO!!!")
                     print('ttl: ' + last_row[0]['title'] + '; cst:' + str(last_row[0]['min_cost']) + '; cnt:' +
@@ -268,45 +290,85 @@ class MarketCore:
             # break
         time.sleep(del_sec)
 
-    def run_core(self):
+    def run_core(self, delay_time):
         # threading.Thread(target=self.fill_db(5)).start()
-        self.fill_db(5)
+        self.fill_db(delay_time)
 
 
 class DataCompare:
 
     def __init__(self):
-        pass
+        """the part of code will be move to json file"""
+        self.buy_dict = {"money_limit": 1000,
+                         "items": {"4245": 100000,  # sai grai
+                                   "3893": 300,  # beretta arx
+                                   "4237": 40,  # at308 syndicate
+                                   "4215": 40,  # synd mp5a5 custom
+                                   "2891": 100,  # ak alfa
+                                   "3232": 70,  # Supressor (KRISS Custom)
+                                   "3014": 100,  # KRISS Custom
+                                   "2832": 70,  # Supressor (AK "Alpha")
+                                   "4251": 100,  # Carbon Magpul FMG-9
+                                   "3899": 100,  # Syndicate Medic Helmet
+                                   "3905": 100,  # Syndicate Shoes
+                                   "3233": 70,  # Tactical silencer (KRISS Custom)
+                                   "3911": 40,  # Syndicate Sniper Helmet
+                                   "3903": 100,  # Syndicate Gloves
+                                   "2833": 40,  # Tactical silencer (AK "Alpha")
+                                   "4063": 300,  # CDX-MC Kraken
+                                   "3913": 100,  # Syndicate Sniper vest
+                                   "3895": 100,  # Syndicate Engineer Helmet
+                                   "4059": 40,  # Sniper Rifle Scope (Kraken CDX MC)
+                                   "3917": 100,  # Syndicate Rifleman Vest
+                                   "4061": 100,  # ATACR 4.5x scope (Kraken CDX MC)
+                                   "3915": 100,  # Syndicate Rifleman Helmet
+                                   "3897": 100,  # Syndicate Engineer Vest
+                                   "4253": 100,  # Carbon RPD Custom
+                                   "4263": 100,  # Flor de Muerto Skin smg38
+                                   "3901": 100,  # Syndicate Medic Vest
+                                   "4257": 100,  # Carbon Orsis T-5000
+                                   "4065": 100,  # Syndicate Fabarm XLR 5 Prestige
+                                   "2975": 40,  # Absolute Desert Eagle
+                                   "3919": 100,  # Syndicate Remington MSR
+                                   "2985": 40  # kiwi glowes for test
+                                   }
+                         }
 
     def __del__(self):
         pass
 
     @staticmethod
     def load_buy_item_base():
-        """function load cookie dict from file, convert it to cookiejar and return"""
-        f = open(r"config\item_base.json", "r")
-        cookie_jar = json.load(f)
+        """The function will be use for load buy config file but now structure of the file is not ready"""
+        f = open(r"config\items_base.json", "r")
+        # base = json.load(f)
+        base = f.read()
         f.close()
+        return base
 
+    @staticmethod
     def create_new_item_base(self):
         sql = SQLInstruments()
         data = sql.get_all_last_records()
         js = json.dumps(data)
         f = open(r"config\items_base.json", "w")
-        for i in :
-            print(i)
-            # json.dumps(data)
-            # f.write(f)
+        f.write("{")
+        for key in data:
+            f.write("".join([str(key), ": ", str(data[key]), ", \n"]))
+        f.write("}")
         f.close()
 
-    def if_buy(self, web_dict, sql_dict):
+    def if_buy(self, web_dict):
         """return True if price is good"""
-        pass
+        if web_dict["entity_id"] in self.buy_dict.keys():  # if id in base
+            if self.buy_dict["items"][web_dict["entity_id"]] <= web_dict["min_cost"]:  # if price is good
+                if self.buy_dict["money_limit"] >= web_dict["min_cost"]:  # if i have money
+                    self.buy_dict["money_limit"] -= web_dict["min_cost"]  # reduce money limit
+                    return True
+        return False
 
 
 if __name__ == '__main__':
-    # core = MarketCore()
-    # core.run_core()
-    d = DataCompare()
-    d.create_new_item_base()
+    core = MarketCore()
+    core.run_core(1)
 
