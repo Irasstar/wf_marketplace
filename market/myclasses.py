@@ -46,9 +46,7 @@ class WebSystem:
     # change insert parameters
     def buy_item(self, dct):
         sess = requests.session()
-        buy_payload = "".join(["entity_id=", dct["entity_id"],
-                               "&cost=", str(dct["min_cost"]),
-                               "&type=", dct["type"]])
+        buy_payload = "entity_id=" + str(dct["entity_id"]) + "&cost=" + str(dct["min_cost"]) + "&type=" + dct["type"]
         url = "https://wf.my.com/minigames/marketplace/api/buy"
         headers = {
             "Accept": "application/json, text/plain, */*",
@@ -303,7 +301,7 @@ class DataCompare:
     def __init__(self):
         """the part of code will be move to json file"""
         self.buy_dict = {"money_limit": 1000,
-                         "items": {"4245": 100000,  # sai grai
+                         "items": {"4245": 100,  # sai grai
                                    "3893": 300,  # beretta arx
                                    "4237": 40,  # at308 syndicate
                                    "4215": 40,  # synd mp5a5 custom
@@ -333,7 +331,7 @@ class DataCompare:
                                    "4065": 100,  # Syndicate Fabarm XLR 5 Prestige
                                    "2975": 40,  # Absolute Desert Eagle
                                    "3919": 100,  # Syndicate Remington MSR
-                                   "2985": 40  # kiwi glowes for test
+                                   "2985": 40  # kiwi gloves for test
                                    }
                          }
 
