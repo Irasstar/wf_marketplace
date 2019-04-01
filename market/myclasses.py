@@ -360,8 +360,9 @@ class DataCompare:
 
     def if_buy(self, web_dict):
         """return True if price is good"""
-        if web_dict["entity_id"] in self.buy_dict.keys():  # if id in base
-            if self.buy_dict["items"][web_dict["entity_id"]] <= web_dict["min_cost"]:  # if price is good
+        print(self.buy_dict["items"].keys())
+        if str(web_dict["entity_id"]) in self.buy_dict["items"].keys():  # if id in base
+            if self.buy_dict["items"][str(web_dict["entity_id"])] <= web_dict["min_cost"]:  # if price is good
                 if self.buy_dict["money_limit"] >= web_dict["min_cost"]:  # if i have money
                     self.buy_dict["money_limit"] -= web_dict["min_cost"]  # reduce money limit
                     return True
@@ -371,4 +372,6 @@ class DataCompare:
 if __name__ == '__main__':
     core = MarketCore()
     core.run_core(1)
-
+    # item = {"entity_id": 2985, "min_cost":40}
+    # w = DataCompare()
+    # w.if_buy(web_dict=item)
