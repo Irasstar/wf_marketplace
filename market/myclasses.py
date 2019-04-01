@@ -43,9 +43,11 @@ class WebSystem:
             print('Connection error')
             return None
 
-    def buy_item(self, entity_id, cost, item_type):
+    def buy_item(self, dct):
         sess = requests.session()
-        buy_payload = "".join(["entity_id=", str(entity_id), "&cost=", str(cost), "&type=", str(item_type)])
+        buy_payload = "".join(["entity_id=", dct["entity_id"],
+                               "&cost=", str(dct["min_cost"]),
+                               "&type=", dct["type"]])
         url = "https://wf.my.com/minigames/marketplace/api/buy"
         headers = {
             "Accept": "application/json, text/plain, */*",
@@ -277,7 +279,7 @@ class MarketCore:
                     # if table is not empty - add new record only if price or count of items changes
                     sql.write_data(dct)
                     if buy.if_buy(dct):
-                        ext.buy_item(dct["entity_id", dct["min_cost"], dct["type"]])
+                        ext.buy_item(dct["entity_id", str(dct["min_cost"]), dct["type"]])
                         print("i buy it")
                     if last_row[0]['min_cost'] > dct['min_cost']*2:
                         print("BINGO!!!")
@@ -360,9 +362,8 @@ class DataCompare:
 
     def if_buy(self, web_dict):
         """return True if price is good"""
-        print(self.buy_dict["items"].keys())
         if str(web_dict["entity_id"]) in self.buy_dict["items"].keys():  # if id in base
-            if self.buy_dict["items"][str(web_dict["entity_id"])] <= web_dict["min_cost"]:  # if price is good
+            if self.buy_dict["items"][str(web_dict["entity_id"])] >= web_dict["min_cost"]:  # if price is good
                 if self.buy_dict["money_limit"] >= web_dict["min_cost"]:  # if i have money
                     self.buy_dict["money_limit"] -= web_dict["min_cost"]  # reduce money limit
                     return True
