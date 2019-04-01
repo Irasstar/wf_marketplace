@@ -279,7 +279,7 @@ class MarketCore:
                     # if table is not empty - add new record only if price or count of items changes
                     sql.write_data(dct)
                     if buy.if_buy(dct):
-                        ext.buy_item(dct["entity_id", str(dct["min_cost"]), dct["type"]])
+                        ext.buy_item(dct)
                         print("i buy it")
                     if last_row[0]['min_cost'] > dct['min_cost']*2:
                         print("BINGO!!!")
