@@ -47,7 +47,7 @@ class WebSystem:
         sess = requests.session()
         buy_payload = "".join(["entity_id=", dct["entity_id"],
                                "&cost=", str(dct["min_cost"]),
-                               "&type=", dct["type"])
+                               "&type=", dct["type"]])
         url = "https://wf.my.com/minigames/marketplace/api/buy"
         headers = {
             "Accept": "application/json, text/plain, */*",
