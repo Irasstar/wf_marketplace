@@ -43,6 +43,7 @@ class WebSystem:
             print('Connection error')
             return None
 
+    # change insert parameters
     def buy_item(self, dct):
         sess = requests.session()
         buy_payload = "".join(["entity_id=", dct["entity_id"],
