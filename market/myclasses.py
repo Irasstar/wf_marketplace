@@ -74,6 +74,7 @@ class WebSystem:
         sess.get("https://wf.my.com/minigames/bpservices")
         requests.utils.add_dict_to_cookiejar(sess.cookies, {'mg_token': mg_token})
         resp = sess.post(url, data=buy_payload, headers=headers)
+        print(resp.status_code)
         sess.close()
         return resp
 
